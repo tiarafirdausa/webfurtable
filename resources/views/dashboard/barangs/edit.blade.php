@@ -73,11 +73,11 @@
             <label for="flashsale" class="form-label">Flashsale</label>
             <div class="form-group" required value="{{ old('flashsale', $barang->flashsale) }}">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" name="flashsale" id="yes" type="radio" value="yes">
+                    <input class="form-check-input" name="flashsale" id="yes" type="radio" value="yes" {{ $barang->flashsale == 'yes' ? 'checked' : '' }} >
                     <label for="yes" class="form-check-label">Yes</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="flashsale" id="no" value="no">
+                    <input class="form-check-input" type="radio" name="flashsale" id="no" value="no" {{ $barang->flashsale == 'no' ? 'checked' : '' }}>
                     <label for="no" class="form-check-label">No</label>
                 </div>
             </div>
@@ -114,7 +114,7 @@
 
         <div class="mb-3">
             <label for="deskripsi_produk" class="form-label">Deskripsi Produk</label>
-            <textarea name="deskripsi_produk" type="text-are" class="form-control @error('deskripsi_produk') is-invalid @enderror" id="deskripsi_produk" value="{{ old('deskripsi_produk', $barang->deskripsi_produk) }}"></textarea>
+            <textarea name="deskripsi_produk" type="text" class="form-control @error('deskripsi_produk') is-invalid @enderror" id="deskripsi_produk">{{ old('deskripsi_produk', $barang->deskripsi_produk) }}</textarea>
             @error('deskripsi_produk')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -124,7 +124,7 @@
 
         <div class="mb-3">
             <label for="ukuran" class="form-label">Ukuran</label>
-            <textarea name="ukuran" type="text-area" class="form-control @error('ukuran') is-invalid @enderror" id="ukuran" value="{{ old('ukuran', $barang->ukuran) }}"></textarea>
+            <textarea name="ukuran" type="text" class="form-control @error('ukuran') is-invalid @enderror" id="ukuran" >{{ old('ukuran', $barang->ukuran) }}</textarea>
             @error('ukuran')
                 <div class="invalid-feedback">
                     {{ $message }}
