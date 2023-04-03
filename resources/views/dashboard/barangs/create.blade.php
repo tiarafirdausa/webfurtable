@@ -20,21 +20,27 @@
 
         <div class="mb-3">
             <label for="category" class="form-label">Category</label>
-            <select class="form-select" name="category_id"  id="category_id" onchange="updateSku()">
+            <select class="form-select" name="category"  id="category" onchange="updateSku()">
                 <option value="">Pilih Category</option>
-                @foreach ($categories as $category)
-                    @if (old('category_id') == $category->id)
-                        <option value="{{ $category->id}}">{{ $category->name }}</option>
-                    @else
-                        <option value="{{ $category->id}}">{{ $category->name }}</option>
-                    @endif
-                @endforeach
+                <option value="JT">Jati</option>
+                <option value="JP">Jepara</option>
+                <option value="KN">Kalimantan</option>
             </select>
         </div>
 
         <div class="mb-3">
             <label for="sku" class="form-label">Sku</label>
             <input name="sku" type="text" class="form-control @error('sku') is-invalid @enderror" id="sku" value="{{ old('sku') }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="stok" class="form-label">Stok</label>
+            <input name="stok" type="number" min="0" class="form-control @error('stok') is-invalid @enderror" id="stok" required autofocus value="{{ old('stok') }}">
+            @error('stok')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
         <div class="mb-3">
@@ -50,7 +56,7 @@
 
         <div class="mb-3">
             <label for="gambar" class="form-label">Gambar</label>
-            <img class="img-preview img-fluid mb-3 col-sm-5" style="max-height: 500px; overflow:hidden">
+            <img class="img-preview img-fluid mb-3 col-sm-5">
             <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar" onchange="previewImage()">
             @error('gambar')
                 <div class="invalid-feedback">
@@ -122,24 +128,33 @@
             @enderror
         </div>
 
+        <div class="mb-3">
+            <label for="bahan" class="form-label">Bahan</label>
+            <input id="bahan" type="hidden" name="bahan" value="{{ old('bahan') }}">
+            <trix-editor input="bahan"></trix-editor>
+            @error('bahan')
+                <p class="text-danger"><small>{{ $message }}</small></p>
+            @enderror
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
 
 <script>
     function updateSku() {
-        var category = document.getElementById("category_id").value;
+        var category = document.getElementById("category").value;
         var skuInput = document.getElementById("sku");
 
-        if (category === "1") {
+        if (category === "JT") {
             var randNum = Math.floor(Math.random() * 1000);
             skuInput.value = "MJ-JT-" + randNum;
 
-        } else if (category === "2") {
+        } else if (category === "JP") {
             var randNum = Math.floor(Math.random() * 1000);
             skuInput.value = "MJ-JP-" + randNum;
 
-        } else if (category === "3") {
+        } else if (category === "KN") {
             var randNum = Math.floor(Math.random() * 1000);
             skuInput.value = "MJ-KN-" + randNum;
         } else {
@@ -159,7 +174,14 @@
         oFReader.onload = function(oFREvent){
             imgPreview.src = oFREvent.target.result;
         }
+
+        // const blob = URL.createObjectURL(image.files[0]);
+        // imgPreview.src = blob;
     }
+
+    document.addEventListener('trix-file-accept', function(e){
+        e.preventDefault();
+    })
 </script>
 
 @endsection

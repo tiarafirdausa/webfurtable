@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
-use App\Models\Category;
+// use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -25,7 +25,7 @@ class BarangController extends Controller
     public function create()
     {
         return view('dashboard.barangs.create',[
-            'categories' => Category::all()
+            // 'categories' => Category::all()
         ]);
     }
 
@@ -39,14 +39,16 @@ class BarangController extends Controller
         $validatedData = $request->validate([
             'nama_barang' => 'required|max:255',
             'sku' => 'required|unique:barangs',
-            'category_id' => 'required',
             'warna' => 'required|max:255',
+            'category' => 'required',
+            'stok' => 'numeric|min:0|required',
             'gambar' => 'image|file|max:1024',
             'flashsale' => 'required',
             'harga' => 'required|max:20',
             'harga_diskon' => 'max:20',
             'deskripsi_produk' => 'required|max:255',
-            'ukuran' => 'required|max:255'
+            'ukuran' => 'required|max:255',
+            'bahan' => 'required'
         ]);
 
         if($request->file('gambar')){
@@ -77,7 +79,7 @@ class BarangController extends Controller
     {
         return view('dashboard.barangs.edit',[
             'barang' => $barang,
-            'categories' => Category::all()
+            // 'categories' => Category::all()
         ]);
     }
 
@@ -93,7 +95,7 @@ class BarangController extends Controller
             'nama_barang' => 'required|max:255',
             'warna' => 'required|max:255',
             'gambar' => 'image|file|max:1024',
-            'category_id' => 'required',
+            'category' => 'required',
             'flashsale' => 'required',
             'harga' => 'required|max:20',
             'harga_diskon' => 'max:20',

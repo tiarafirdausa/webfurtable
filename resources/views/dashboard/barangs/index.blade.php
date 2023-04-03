@@ -47,7 +47,7 @@
                         {{-- <td>
                             <img src="{{ asset('storage/'.$barang->gambar) }}" style="width: 5rem" class="img-fluid">
                         </td> --}}
-                        <td>{{ $barang->category->name}}</td>
+                        <td>{{ $barang->category}}</td>
                         <td>{{ $barang->flashsale }}</td>
                         <td>{{ $barang->harga }}</td>
                         <td>{{ $barang->harga_diskon }}</td>

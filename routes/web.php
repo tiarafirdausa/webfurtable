@@ -17,12 +17,8 @@ use App\Http\Controllers\LoginController;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('login.index');
 });
-
-// Route::get('/', function () {
-//     return Redirect::to('login');
-// });
 
 //login
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');

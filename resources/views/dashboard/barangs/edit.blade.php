@@ -21,15 +21,11 @@
 
         <div class="mb-3">
             <label for="category" class="form-label">Category</label>
-            <select class="form-select" name="category_id"  id="category_id" onchange="updateSku()" >
+            <select class="form-select" name="category"  id="category" onchange="updateSku()" >
                 <option value="">Pilih Category</option>
-                @foreach ($categories as $category)
-                    @if (old('category_id', $barang->category_id) == $category->id)
-                        <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
-                    @else
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endif
-                @endforeach
+                <option value="Jati" {{ $barang->category == 'Jati' ? 'selected' : '' }}>Jati</option>
+                <option value="Jepara" {{ $barang->category == 'Jepara' ? 'selected' : '' }}>Jepara</option>
+                <option value="Kalimantan" {{ $barang->category == 'Kalimantan' ? 'selected' : '' }}>Kalimantan</option>
             </select>
         </div>
 
@@ -37,6 +33,16 @@
             <label for="sku" class="form-label">Sku</label>
             <input name="sku" type="text" class="form-control @error('sku') is-invalid @enderror" id="sku" value="{{ old('sku', $barang->sku) }}">
             @error('sku')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="stok" class="form-label">Stok</label>
+            <input name="stok" type="number" min="0" class="form-control @error('stok') is-invalid @enderror" id="stok" required autofocus value="{{ old('stok', $barang->stok) }}">
+            @error('stok')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
@@ -132,13 +138,22 @@
             @enderror
         </div>
 
+        <div class="mb-3">
+            <label for="bahan" class="form-label">Bahan</label>
+            <input id="bahan" type="hidden" name="bahan" value="{{ old('bahan', $barang->bahan) }}">
+            <trix-editor input="bahan"></trix-editor>
+            @error('bahan')
+                <p class="text-danger"><small>{{ $message }}</small></p>
+            @enderror
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
 
 <script>
     function updateSku() {
-        var category = document.getElementById("category_id").value;
+        var category = document.getElementById("category").value;
         var skuInput = document.getElementById("sku");
 
         if (category === "JT") {
@@ -169,6 +184,8 @@
         oFReader.onload = function(oFREvent){
             imgPreview.src = oFREvent.target.result;
         }
+        // const blob = URL.createObjectURL(image.files[0]);
+        // imgPreview.src = blob;
     }
 </script>
 

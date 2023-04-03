@@ -10,9 +10,9 @@ class Barang extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $with = ['category'];
+    // protected $with = ['category'];
 
-    public function category(){
-        return $this->belongsTo(Category::class);
-    }
+    // public function category(){
+    //     return $this->belongsTo(Category::class);
+    // }
 }

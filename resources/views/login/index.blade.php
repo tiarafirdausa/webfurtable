@@ -19,7 +19,9 @@
     <link rel="stylesheet" href="/css/style.css">
 
     <!-- Logo Web -->
+    {{-- <link rel="icon" href="{{ asset('/public/img/logo.png') }}"> --}}
     <link rel="icon" href="{{ url('img/logo.png') }}">
+
 
     <style>
         trix-toolbar [data-trix-button-group='file-tools']{
@@ -46,10 +48,20 @@
             <div class="form-group">
                 <label for="email">Email</label>
                 <input required="" name="email" id="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="name@example.com" value="{{ old('email') }}" autofocus required>
+                @error('email')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Password" required>
+                @error('password')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
             </div>
             <div class="form-group">
                 <input value="Login" type="submit">

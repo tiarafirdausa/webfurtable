@@ -25,16 +25,16 @@ class DatabaseSeeder extends Seeder
         User::factory(5)->create();
         // Barang::factory(5)->create();
 
-        Category::create([
-            'name' => 'Jati'
-        ]);
+        // Category::create([
+        //     'name' => 'Jati'
+        // ]);
 
-        Category::create([
-            'name' => 'Jepara'
-        ]);
+        // Category::create([
+        //     'name' => 'Jepara'
+        // ]);
 
-        Category::create([
-            'name' => 'Kalimantan'
-        ]);
+        // Category::create([
+        //     'name' => 'Kalimantan'
+        // ]);
     }
 }
