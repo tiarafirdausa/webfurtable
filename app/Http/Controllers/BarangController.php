@@ -12,10 +12,38 @@ class BarangController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        $barang = Barang::latest();
+
+        //category
+        $barang->when($request->category, function($query) use ($request){
+            return $query->where('category', $request->category);
+        });
+
+        //flashsale
+        $barang->when($request->flashsale, function($query) use ($request){
+            return $query->where('flashsale', $request->flashsale);
+        });
+
+        //search
+        if(request('search')){
+            $barang->where('nama_barang', 'like', '%' . request('search') . '%')
+                    ->orWhere('sku', 'like', '%' . request('search') . '%')
+                    ->orWhere('ukuran', 'like', '%' . request('search') . '%')
+                    ->orWhere('deskripsi_produk', 'like', '%' . request('search') . '%')
+                    ->orWhere('category', 'like', '%' . request('search') . '%')
+                    ->orWhere('warna', 'like', '%' . request('search') . '%')
+                    ->orWhere('bahan', 'like', '%' . request('search') . '%')
+                    ->orWhere('stok', 'like', '%' . request('search') . '%')
+                    ->orWhere('flashsale', 'like', '%' . request('search') . '%')
+                    ->orWhere('harga', 'like', '%' . request('search') . '%')
+                    ->orWhere('harga_diskon', 'like', '%' . request('search') . '%');
+        }
+
         return view('dashboard.barangs.index', [
-            'barangs' => Barang::all()
+            'barangs' => $barang->paginate(2)->withQueryString()
         ]);
     }
 
@@ -24,9 +52,7 @@ class BarangController extends Controller
      */
     public function create()
     {
-        return view('dashboard.barangs.create',[
-            // 'categories' => Category::all()
-        ]);
+        return view('dashboard.barangs.create');
     }
 
     /**
@@ -79,7 +105,6 @@ class BarangController extends Controller
     {
         return view('dashboard.barangs.edit',[
             'barang' => $barang,
-            // 'categories' => Category::all()
         ]);
     }
 
@@ -89,7 +114,6 @@ class BarangController extends Controller
     public function update(Request $request, Barang $barang)
     {
         // dd($request->all());
-
 
         $rules = [
             'nama_barang' => 'required|max:255',
@@ -128,6 +152,7 @@ class BarangController extends Controller
      */
     public function destroy(Barang $barang)
     {
+        //hapus image
         if($barang->image){
             Storage::delete($barang->image);
         }

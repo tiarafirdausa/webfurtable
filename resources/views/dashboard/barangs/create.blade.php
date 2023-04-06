@@ -22,9 +22,9 @@
             <label for="category" class="form-label">Category</label>
             <select class="form-select" name="category"  id="category" onchange="updateSku()">
                 <option value="">Pilih Category</option>
-                <option value="JT">Jati</option>
-                <option value="JP">Jepara</option>
-                <option value="KN">Kalimantan</option>
+                <option value="Jati">Jati</option>
+                <option value="Jepara">Jepara</option>
+                <option value="Kalimantan">Kalimantan</option>
             </select>
         </div>
 
@@ -53,11 +53,10 @@
             @enderror
         </div>
 
-
         <div class="mb-3">
             <label for="gambar" class="form-label">Gambar</label>
             <img class="img-preview img-fluid mb-3 col-sm-5">
-            <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar" onchange="previewImage()">
+            <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar" onchange="previewImage()" ,ultiple required>
             @error('gambar')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -78,15 +77,6 @@
                 </div>
             </div>
         </div>
-
-        {{-- <div class="mb-3">
-            <label for="flashsale" class="form-label">Flashsale</label>
-            <select class="form-select" name="flashsale"  id="flashsale">
-                <option value="">Pilih</option>
-                <option value="yes" selected>Yes</option>
-                <option value="no">No</option>
-            </select>
-        </div> --}}
 
         <div class="mb-3">
             <label for="harga" class="form-label">Harga</label>
@@ -146,15 +136,15 @@
         var category = document.getElementById("category").value;
         var skuInput = document.getElementById("sku");
 
-        if (category === "JT") {
+        if (category === "Jati") {
             var randNum = Math.floor(Math.random() * 1000);
             skuInput.value = "MJ-JT-" + randNum;
 
-        } else if (category === "JP") {
+        } else if (category === "Jepara") {
             var randNum = Math.floor(Math.random() * 1000);
             skuInput.value = "MJ-JP-" + randNum;
 
-        } else if (category === "KN") {
+        } else if (category === "Kalimantan") {
             var randNum = Math.floor(Math.random() * 1000);
             skuInput.value = "MJ-KN-" + randNum;
         } else {

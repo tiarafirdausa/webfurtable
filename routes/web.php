@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\BarangController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\DashboardController;
 
 
 /*
@@ -25,12 +26,11 @@ Route::get('/login', [LoginController::class, 'index'])->name('login')->middlewa
 Route::post('/login', [LoginController::class, 'authenticate']);
 
 //dashboard
-Route::get('/dashboard', function(){
-    return view('dashboard.index');
-})->middleware('auth');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
 //logout
 Route::post('/logout', [LoginController::class, 'logout']);
 
 //barang
 Route::resource('dashboard/barangs', BarangController::class)->middleware('auth');
+

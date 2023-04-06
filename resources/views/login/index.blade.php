@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="/css/style.css">
 
     <!-- Logo Web -->
-    {{-- <link rel="icon" href="{{ asset('/public/img/logo.png') }}"> --}}
     <link rel="icon" href="{{ url('img/logo.png') }}">
 
 
@@ -31,14 +30,6 @@
 
 </head>
 <body>
-    {{-- <div class="alertLogin col-lg-5">
-        @if (session()->has('loginError'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('loginError') }}
-            </div>
-        @endif
-    </div> --}}
-
     <div class="login-card">
         <div class="card-header">
             <div class="log">Login</div>
@@ -66,6 +57,7 @@
             <div class="form-group">
                 <input value="Login" type="submit">
             </div>
+            {{-- alert --}}
             <div class="form-group text-danger ">
                 @if (session()->has('loginError'))
                         {{ session('loginError') }}

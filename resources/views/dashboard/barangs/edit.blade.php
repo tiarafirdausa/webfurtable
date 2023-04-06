@@ -89,15 +89,6 @@
             </div>
         </div>
 
-        {{-- <div class="mb-3">
-            <label for="flashsale" class="form-label">Flashsale</label>
-            <select class="form-select" name="flashsale"  id="flashsale">
-                <option value="">Pilih</option>
-                <option value="yes" selected>Yes</option>
-                <option value="no">No</option>
-            </select>
-        </div> --}}
-
         <div class="mb-3">
             <label for="harga" class="form-label">Harga</label>
             <input name="harga" type="number" class="form-control @error('harga') is-invalid @enderror" id="harga" required value="{{ old('harga', $barang->harga) }}">
