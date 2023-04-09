@@ -17,8 +17,18 @@
     <div class="row">
         {{-- image --}}
         <div class="detail-right col-lg-6 mt-2">
-            <div style="max-width: 30rem;">
-                <img src="{{ asset('storage/' . $barang->gambar) }}" alt="{{ $barang->category }}" class="img-fluid">
+            <div style="max-width: 10rem;">
+                @foreach(json_decode($barang->gambar) as $gambar)
+                    <img src="{{ asset('storage/'.$gambar) }}" alt="gambar" class="img-fluid">
+                @endforeach
+                {{-- <img src="{{ asset('storage/' . $barang->gambar) }}" alt="{{ $barang->category }}" class="img-fluid"> --}}
+            </div>
+
+            <div style="max-width: 10rem;">
+                @foreach(json_decode($barang->gambarWarna) as $gambar)
+                    <img src="{{ asset('storage/'.$gambar) }}" alt="gambar" class="img-fluid">
+                @endforeach
+                {{-- <img src="{{ asset('storage/' . $barang->gambar) }}" alt="{{ $barang->category }}" class="img-fluid"> --}}
             </div>
         </div>
         {{-- detail barang --}}
@@ -60,7 +70,7 @@
                         </tr>
                         <tr>
                             <td>Ukuran</td>
-                            <td>{{ $barang->ukuran }}</td>
+                            <td>{!! $barang->ukuran !!}</td>
                         </tr>
                         <tr>
                             <td>Bahan</td>

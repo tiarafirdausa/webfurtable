@@ -15,7 +15,7 @@ class BarangController extends Controller
     public function index(Request $request)
     {
 
-        $barang = Barang::latest();
+        $barang = Barang::oldest();
 
         //category
         $barang->when($request->category, function($query) use ($request){
@@ -60,58 +60,40 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
-        // $this->validate($request, [
-        //     'gambar' => 'required',
-        //     'gambar.*' => 'image'
-        // ]);
-
-        // $files = [];
-        // if($request->hasfile('gambar'))
-        // {
-        //     foreach($request->file('gambar') as $file)
-        //     {
-        //         $name = time().rand(1,50).'.'.$file->extension();
-        //         $file->move(public_path('files'), $name);
-        //         $files[] = $name;
-        //     }
-        // }
-
-        // $file= new Barang();
-        // $file->gambar = $files;
-        // $file->nama_barang = $request->nama_barang;
-        // $file->sku = $request->sku;
-        // $file->warna = $request->warna;
-        // $file->category = $request->category;
-        // $file->stok = $request->stok;
-        // $file->flashsale = $request->flashsale;
-        // $file->harga = $request->harga;
-        // $file->harga_diskon = $request->harga_diskon;
-        // $file->deskripsi_produk = $request->deskripsi_produk;
-        // $file->ukuran = $request->ukuran;
-        // $file->bahan = $request->bahan;
-        // $file->save();
-
-        // return back()->with('success', 'Barang berhasil ditambahkan!');
-
         $validatedData = $request->validate([
             'nama_barang' => 'required|max:255',
             'sku' => 'required|unique:barangs',
             'warna' => 'required|max:255',
             'category' => 'required',
             'stok' => 'numeric|min:0|required',
-            'gambar' => 'image|file|max:1024',
+            'gambar.*' => 'image|file|max:2048',
+            'gambarWarna.*' => 'image|file|max:2048',
             'flashsale' => 'required',
             'harga' => 'required|max:20',
             'harga_diskon' => 'max:20',
-            'deskripsi_produk' => 'required|max:255',
-            'ukuran' => 'required|max:255',
+            'deskripsi_produk' => 'required',
+            'ukuran' => 'required',
             'bahan' => 'required'
         ]);
 
-        if($request->file('gambar')){
-            $validatedData['gambar'] = $request->file('gambar')->store('post-gambar');
+        //gambar
+        if($request->hasFile('gambar')){
+            $gambarPaths = [];
+            foreach($request->file('gambar') as $gambar){
+                $gambarPath = $gambar->store('post-gambar');
+                array_push($gambarPaths, $gambarPath);
+            }
+            $validatedData['gambar'] = json_encode($gambarPaths);
+        }
+
+        //gambarWarna
+        if($request->hasFile('gambarWarna')){
+            $gambarPaths = [];
+            foreach($request->file('gambarWarna') as $gambar){
+                $gambarPath = $gambar->store('post-gambar');
+                array_push($gambarPaths, $gambarPath);
+            }
+            $validatedData['gambarWarna'] = json_encode($gambarPaths);
         }
 
         $validatedData['user_id'] = auth()->user()->id;
@@ -146,49 +128,17 @@ class BarangController extends Controller
      */
     public function update(Request $request, Barang $barang)
     {
-        // dd($request->all());
-
-        // $this->validate($request, [
-        //     'gambar' => 'required',
-        //     'gambar.*' => 'image'
-        // ]);
-
-        // $files = [];
-        // if($request->hasfile('gambar'))
-        // {
-        //     foreach($request->file('gambar') as $file)
-        //     {
-        //         $name = time().rand(1,50).'.'.$file->extension();
-        //         $file->move(public_path('files'), $name);
-        //         $files[] = $name;
-        //     }
-        // }
-
-        // $file= Barang::where('id', $barang->id)->first();
-        // $file->gambar = $files;
-        // $file->nama_barang = $request->nama_barang;
-        // $file->sku = $request->sku;
-        // $file->warna = $request->warna;
-        // $file->category = $request->category;
-        // $file->stok = $request->stok;
-        // $file->flashsale = $request->flashsale;
-        // $file->harga = $request->harga;
-        // $file->harga_diskon = $request->harga_diskon;
-        // $file->deskripsi_produk = $request->deskripsi_produk;
-        // $file->ukuran = $request->ukuran;
-        // $file->bahan = $request->bahan;
-        // $file->save();
-
         $rules = [
             'nama_barang' => 'required|max:255',
             'warna' => 'required|max:255',
-            'gambar' => 'image|file|max:1024',
-            'category' => 'required',
+            'gambar.*' => 'image|file|max:2048',
+            'gambarWarna.*' => 'image|file|max:2048',
             'flashsale' => 'required',
             'harga' => 'required|max:20',
             'harga_diskon' => 'max:20',
-            'deskripsi_produk' => 'required|max:255',
-            'ukuran' => 'required|max:255'
+            'deskripsi_produk' => 'required',
+            'ukuran' => 'required',
+            'bahan' => 'required',
         ];
 
         //update sku
@@ -199,14 +149,39 @@ class BarangController extends Controller
         $validatedData = $request->validate($rules);
 
         //update image dan hapus yang lama
-        if($request->file('gambar')){
-            if($request->oldImage){
-                Storage::delete($request->oldImage);
+        if($request->hasFile('gambar')){
+            $gambarPaths = [];
+            foreach($request->file('gambar') as $gambar){
+                $gambarPath = $gambar->store('post-gambar');
+                array_push($gambarPaths, $gambarPath);
             }
-            $validatedData['gambar'] = $request->file('gambar')->store('post-gambar');
+            $validatedData['gambar'] = json_encode($gambarPaths);
         }
 
-        Barang::where('id', $barang->id)->update($validatedData);
+        //update image dan hapus yang lama
+        if($request->hasFile('gambarWarna')){
+            $gambarPaths = [];
+            foreach($request->file('gambarWarna') as $gambar){
+                $gambarPath = $gambar->store('post-gambar');
+                array_push($gambarPaths, $gambarPath);
+            }
+            $validatedData['gambarWarna'] = json_encode($gambarPaths);
+        }
+
+        // Barang::where('id', $barang->id)->update($validatedData);
+
+        Barang::where('id', $barang->id)->update([
+            'nama_barang' => $validatedData['nama_barang'],
+            'warna' => $validatedData['warna'],
+            'gambar' => isset($validatedData['gambar']) ? json_encode($validatedData['gambar']) : $barang->gambar,
+            'gambarWarna' => isset($validatedData['gambarWarna']) ? json_encode($validatedData['gambarWarna']) : $barang->gambarWarna,
+            'flashsale' => $validatedData['flashsale'],
+            'harga' => $validatedData['harga'],
+            'harga_diskon' => $validatedData['harga_diskon'],
+            'deskripsi_produk' => $validatedData['deskripsi_produk'],
+            'ukuran' => $validatedData['ukuran'],
+            'bahan' => $validatedData['bahan'],
+        ]);
 
         return redirect('/dashboard/barangs')->with('success', 'Barang berhasil diperbaharui!');
     }
@@ -217,8 +192,12 @@ class BarangController extends Controller
     public function destroy(Barang $barang)
     {
         //hapus image
-        if($barang->image){
-            Storage::delete($barang->image);
+        if($barang->gambar){
+            Storage::delete($barang->gambar);
+        }
+
+        if($barang->gambarWarna){
+            Storage::delete($barang->gambarWarna);
         }
 
         Barang::destroy($barang->id);

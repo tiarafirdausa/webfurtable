@@ -30,7 +30,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="sku" class="form-label">Sku</label>
+            <label for="sku" class="form-label">SKU</label>
             <input name="sku" type="text" class="form-control @error('sku') is-invalid @enderror" id="sku" value="{{ old('sku', $barang->sku) }}">
             @error('sku')
                 <div class="invalid-feedback">
@@ -61,13 +61,18 @@
 
 
         <div class="mb-3">
+            <label for="gambarWarna" class="form-label">Gambar Warna</label>
+            <input class="form-control @error('gambarWarna') is-invalid @enderror" type="file" id="gambarWarna" name="gambarWarna[]" multiple>
+            @error('gambarWarna')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
             <label for="gambar" class="form-label">Gambar</label>
-            @if ($barang->gambar)
-                <img src="{{ asset('storage/'.$barang->gambar) }}" class="img-preview img-fluid mb-2 col-sm-5 d-block">
-            @else
-                <img class="img-preview img-fluid mb-3 col-sm-5">
-            @endif
-            <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar" onchange="previewImage()">
+            <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar[]" multiple>
             @error('gambar')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -119,13 +124,22 @@
             @enderror
         </div>
 
-        <div class="mb-3">
+        {{-- <div class="mb-3">
             <label for="ukuran" class="form-label">Ukuran</label>
             <textarea name="ukuran" type="text" class="form-control @error('ukuran') is-invalid @enderror" id="ukuran" >{{ old('ukuran', $barang->ukuran) }}</textarea>
             @error('ukuran')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
+            @enderror
+        </div> --}}
+
+        <div class="mb-3">
+            <label for="ukuran" class="form-label">Ukuran</label>
+            <input id="ukuran" type="hidden" name="ukuran" value="{{ old('ukuran', $barang->ukuran) }}">
+            <trix-editor input="ukuran"></trix-editor>
+            @error('ukuran')
+                <p class="text-danger"><small>{{ $message }}</small></p>
             @enderror
         </div>
 
@@ -176,22 +190,7 @@
             imgPreview.src = oFREvent.target.result;
         }
     }
-
-    // var flashsale = document.getElementsByName("flashsale");
-    // var harga_diskon = document.getElementById("harga_diskon");
-    //     // Memasang event listener pada radio button
-    // for(var i=0; i<flashsale.length; i++) {
-    //     flashsale[i].addEventListener('click', function() {
-    //         // Jika pilihan 'yes' dipilih, tampilkan form field baru
-    //         if(this.value == 'yes') {
-    //             harga_diskon.style.display = 'block';
-    //         }
-    //         // Jika pilihan 'no' dipilih, sembunyikan form field baru
-    //         else {
-    //             harga_diskon.style.display = 'none';
-    //         }
-    //     });
-    // }
 </script>
 
 @endsection
+

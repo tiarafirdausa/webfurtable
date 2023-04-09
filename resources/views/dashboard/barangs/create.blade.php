@@ -29,7 +29,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="sku" class="form-label">Sku</label>
+            <label for="sku" class="form-label">SKU</label>
             <input name="sku" type="text" class="form-control @error('sku') is-invalid @enderror" id="sku" value="{{ old('sku') }}">
         </div>
 
@@ -54,9 +54,18 @@
         </div>
 
         <div class="mb-3">
-            <label for="gambar" class="form-label">Gambar</label>
-            <img class="img-preview img-fluid mb-3 col-sm-5">
-            <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar" onchange="previewImage()" multiple required>
+            <label for="gambarWarna" class="form-label">Gambar Warna</label>
+            <input class="form-control @error('gambarWarna') is-invalid @enderror" type="file" id="gambarWarna" name="gambarWarna[]" multiple required>
+            @error('gambarWarna')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="gambar" class="form-label">Gambar Detail</label>
+            <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar[]" multiple required>
             @error('gambar')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -108,13 +117,22 @@
             @enderror
         </div>
 
-        <div class="mb-3">
+        {{-- <div class="mb-3">
             <label for="ukuran" class="form-label">Ukuran</label>
             <textarea name="ukuran" type="text-area" class="form-control @error('ukuran') is-invalid @enderror" id="ukuran" >{{ old('ukuran') }}</textarea>
             @error('ukuran')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
+            @enderror
+        </div> --}}
+
+        <div class="mb-3">
+            <label for="ukuran" class="form-label">Ukuran</label>
+            <input id="ukuran" type="hidden" name="ukuran" value="{{ old('ukuran') }}">
+            <trix-editor input="ukuran"></trix-editor>
+            @error('ukuran')
+                <p class="text-danger"><small>{{ $message }}</small></p>
             @enderror
         </div>
 

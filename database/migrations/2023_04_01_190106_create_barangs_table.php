@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('stok');
             $table->string('warna');
             $table->string('gambar');
+            $table->string('gambarWarna');
             $table->string('flashsale');
             $table->string('harga');
             $table->string('harga_diskon')->nullable();

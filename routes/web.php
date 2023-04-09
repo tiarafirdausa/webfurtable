@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CatalogController;
 
 
 /*
@@ -20,6 +21,20 @@ use App\Http\Controllers\DashboardController;
 Route::get('/', function () {
     return view('login.index');
 });
+
+Route::get('/home', function () {
+    return view('catalog.home');
+});
+
+// Route::get('/tentang', function () {
+//     return view('catalog.tentang');
+// });
+
+Route::get('/product', function () {
+    return view('catalog.product');
+});
+
+Route::get('/tentang', [CatalogController::class, 'tentang']);
 
 //login
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');

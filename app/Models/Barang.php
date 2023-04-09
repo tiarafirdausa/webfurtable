@@ -11,4 +11,8 @@ class Barang extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'gambar' => 'array',
+        'gambarWarna' => 'array',
+    ];
 }

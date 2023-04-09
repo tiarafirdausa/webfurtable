@@ -73,6 +73,7 @@
                 <div class="col-md-15 mb-3 border">
                     <div class="padding" style="padding: 1rem">
                         <h5>Flashsale Products</h5>
+                        @if($barang_flashsale->count())
                         <div class="table-responsive">
                             <table class="table table-sm table-hover">
                                 <thead>
@@ -97,6 +98,10 @@
                                 </tbody>
                             </table>
                         </div>
+                        @else
+                            {{-- jika tidak ada post --}}
+                            <p class="text-center mt-5 fs-6">Barang tidak ditemukan.</p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -106,6 +111,7 @@
                 <div class="col-md-15 border">
                     <div class="padding" style="padding: 1rem">
                         <h5>Recently Added Products</h5>
+                        @if($barang_latest->count())
                         <div class="table-responsive">
                             <table class="table table-sm table-hover">
                                 <thead>
@@ -126,6 +132,10 @@
                                 </tbody>
                             </table>
                         </div>
+                        @else
+                            {{-- jika tidak ada post --}}
+                            <p class="text-center mt-5 fs-6">Barang tidak ditemukan.</p>
+                        @endif
                     </div>
                 </div>
             </div>
