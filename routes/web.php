@@ -48,3 +48,8 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 // barang
 Route::resource('dashboard/barangs', BarangController::class)->middleware('auth');
+
+//hubungi kami
+Route::get('/hubungi', function () {
+    return view('catalog.hubungi');
+});
