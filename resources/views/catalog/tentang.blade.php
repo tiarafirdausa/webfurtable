@@ -182,49 +182,13 @@
     <section class="populer">
         <h1>Produk Populer</h1>
         <div class="container">
-            {{-- <div class="card">
-                <img src="img/tentang/assets(png)/populer1.png">
-                <div class="deskripsi">
-                    <h4>Kursi kayu jati</h4>
-                    <h3>Kursi kayu jati</h3>
-                    <h2>Rp 6.500.000</h2>
-                </div>
-                <p>Lihat detail</p>
-            </div>
-            <div class="card">
-                <img src="img/tentang/assets(png)/populer2.png">
-                <div class="deskripsi">
-                    <h4>Kursi kayu jati</h4>
-                    <h3>Kursi kayu jati</h3>
-                    <h2>Rp 6.500.000</h2>
-                </div>
-                <p>Lihat detail</p>
-            </div>
-            <div class="card">
-                <img src="img/tentang/assets(png)/populer3.png">
-                <div class="deskripsi">
-                    <h4>Kursi kayu jati</h4>
-                    <h3>Kursi kayu jati</h3>
-                    <h2>Rp 6.500.000</h2>
-                </div>
-                <p>Lihat detail</p>
-            </div>
-            <div class="card">
-                <img src="img/tentang/assets(png)/populer4.png">
-                <div class="deskripsi">
-                    <h4>Kursi kayu jati</h4>
-                    <h3>Kursi kayu jati</h3>
-                    <h2>Rp 6.500.000</h2>
-                </div>
-                <p>Lihat detail</p>
-            </div> --}}
             @foreach ($populer as $barang )
             <div class="card">
                 <img src="img/tentang/assets(png)/populer4.png">
                 <div class="deskripsi">
                     <h4>Kursi kayu jati</h4>
-                    <h3>Kursi kayu jati</h3>
-                    <h2>Rp 6.500.000</h2>
+                    <h3>{{ $barang->nama_barang }}</h3>
+                    <h2>Rp {{ $barang->harga }}</h2>
                 </div>
                 <p>Lihat detail</p>
             </div>
