@@ -56,7 +56,7 @@
         <div class="mb-3">
             <label for="gambar" class="form-label">Gambar</label>
             <img class="img-preview img-fluid mb-3 col-sm-5">
-            <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar" onchange="previewImage()" ,ultiple required>
+            <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar" onchange="previewImage()" multiple required>
             @error('gambar')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -88,7 +88,7 @@
             @enderror
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3" id="harga_diskon" style="display: none">
             <label for="harga_diskon" class="form-label">Harga Diskon</label>
             <input name="harga_diskon" type="number" min="0" class="form-control @error('harga_diskon') is-invalid @enderror" id="harga_diskon" value="{{ old('harga_diskon') }}">
             @error('harga_diskon')
@@ -100,7 +100,7 @@
 
         <div class="mb-3">
             <label for="deskripsi_produk" class="form-label">Deskripsi Produk</label>
-            <textarea name="deskripsi_produk" type="text-are" class="form-control @error('deskripsi_produk') is-invalid @enderror" id="deskripsi_produk" value="{{ old('deskripsi_produk') }}"></textarea>
+            <textarea name="deskripsi_produk" type="text-are" class="form-control @error('deskripsi_produk') is-invalid @enderror" id="deskripsi_produk">{{ old('deskripsi_produk') }}</textarea>
             @error('deskripsi_produk')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -110,7 +110,7 @@
 
         <div class="mb-3">
             <label for="ukuran" class="form-label">Ukuran</label>
-            <textarea name="ukuran" type="text-area" class="form-control @error('ukuran') is-invalid @enderror" id="ukuran" value="{{ old('ukuran') }}"></textarea>
+            <textarea name="ukuran" type="text-area" class="form-control @error('ukuran') is-invalid @enderror" id="ukuran" >{{ old('ukuran') }}</textarea>
             @error('ukuran')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -172,6 +172,23 @@
     document.addEventListener('trix-file-accept', function(e){
         e.preventDefault();
     })
+
+    var flashsale = document.getElementsByName("flashsale");
+    var harga_diskon = document.getElementById("harga_diskon");
+        // Memasang event listener pada radio button
+    for(var i=0; i<flashsale.length; i++) {
+        flashsale[i].addEventListener('click', function() {
+            // Jika pilihan 'yes' dipilih, tampilkan form field baru
+            if(this.value == 'yes') {
+                harga_diskon.style.display = 'block';
+            }
+            // Jika pilihan 'no' dipilih, sembunyikan form field baru
+            else {
+                harga_diskon.style.display = 'none';
+            }
+        });
+    }
+
 </script>
 
 @endsection

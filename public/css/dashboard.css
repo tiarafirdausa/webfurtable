@@ -133,6 +133,14 @@ body {
     border-radius: 1rem;
 }
 
+.feather-size1{
+    width: 1rem;
+    height: 1rem;
+    color: #ffffff;
+    border-color: rgb(255, 255, 255);
+    border-radius: 1.5rem;
+}
+
   .analytic-jumlah .row .card .card-body{
     justify-content: center;
     align-items: center;
@@ -142,41 +150,35 @@ body {
     font-size: small;
   }
 
-  .detail-barang .row{
-    display: flex;
-  }
-
-  .filter-button {
-
-}
-
-.filter-button .row {
+  /* .detail-barang .row{
     display: inline-flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    background-color: rgb(157, 51, 51);
+  } */
+
+
+
+/* .search{
+    display: flex;
+    align-items: center;
+  } */
+
+  /* .filter {
+    margin-left: 10px;
   }
 
-.filter-button .row .search form{
-    background-color: aqua;
-    width: 30%;
+  .category,
+  .flashsale {
+    margin-left: 10px;
+  } */
 
-}
 
-  .filter-button .row .filter form {
-      background-color: chartreuse;
-      width: 70%;
-      display: flex;
-      /* justify-content: end; */
-    }
 
-/* .filter-button .row .filter .category {
+/* .row .filter .category {
     width: 20%;
 }
 
-.filter-button .row .filter .flashsale {
+.row .filter .flashsale {
     width: 20%;
 }
-.filter-button .row .filter button {
+.row .filter button {
     width: 20%;
 } */

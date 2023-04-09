@@ -14,7 +14,7 @@ class DashboardController extends Controller
         // dd($request->all());
         return view('dashboard.index',[
             'barang_flashsale' => Barang::select("*")->where("flashsale", "=", "yes")->get(),
-            'barang_latest' => Barang::latest()->paginate(5),
+            'barang_latest' => Barang::latest()->paginate(4),
             'barang_count' => Barang::count(),
             'user' => User::count()
         ]);

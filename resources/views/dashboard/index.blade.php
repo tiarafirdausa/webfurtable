@@ -9,7 +9,7 @@
     <div class="analytic-jumlah">
         <div class="row">
             <div class="card" >
-                <a class="card-body btn" href="#">
+                <div class="card-body">
                     <div class="card-main">
                         <div class="card-left">
                             <h5 class="card-title">Barang</h5>
@@ -19,11 +19,11 @@
                             <span data-feather="box" class="feather-size4"></span>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
 
             <div class="card" >
-                <a class="card-body btn" href="#">
+                <div class="card-body">
                     <div class="card-main">
                         <div class="card-left">
                             <h5 class="card-title">Cart</h5>
@@ -33,11 +33,11 @@
                             <span data-feather="shopping-cart" class="feather-size4"></span>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
 
             <div class="card" >
-                <a class="card-body btn" href="#">
+                <div class="card-body">
                     <div class="card-main">
                         <div class="card-left">
                             <h5 class="card-title">Transaksi</h5>
@@ -47,11 +47,11 @@
                             <span data-feather="dollar-sign" class="feather-size4"></span>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
 
             <div class="card" >
-                <a class="card-body btn" href="#">
+                <div class="card-body">
                     <div class="card-main">
                         <div class="card-left">
                             <h5 class="card-title">User</h5>
@@ -61,7 +61,7 @@
                             <span data-feather="user" class="feather-size4"></span>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
     </div>
@@ -70,54 +70,62 @@
         <div class="row ">
             {{-- Flashsale Products --}}
             <div class="card-flashsale col-lg-6">
-                <div class="col-md-15" style="border-style: inset">
-                    <h5>Flashsale Products</h5>
-                    <div class="table-responsive">
-                        <table class="table table-sm">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No</th>
-                                    <th scope="col">Nama Barang</th>
-                                    <th scope="col">SKU</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($barang_flashsale as $barang )
+                <div class="col-md-15 mb-3 border">
+                    <div class="padding" style="padding: 1rem">
+                        <h5>Flashsale Products</h5>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover">
+                                <thead>
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $barang->nama_barang }}</td>
-                                        <td>{{ $barang->sku }}</td>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Nama Barang</th>
+                                        <th scope="col">SKU</th>
+                                        <th scope="col">Harga</th>
+                                        <th scope="col">Harga Diskon</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($barang_flashsale as $barang )
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $barang->nama_barang }}</td>
+                                            <td>{{ $barang->sku }}</td>
+                                            <td>{{ $barang->harga }}</td>
+                                            <td>{{ $barang->harga_diskon }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
 
             {{-- Recently Added Products --}}
             <div class="card-latest col-lg-6">
-                <div class="col-md-15" style="border-style: inset">
-                    <h5>Recently Added Products</h5>
-                    <div class="table-responsive">
-                        <table class="table table-sm">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No</th>
-                                    <th scope="col">Nama Barang</th>
-                                    <th scope="col">SKU</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($barang_latest as $barang )
+                <div class="col-md-15 border">
+                    <div class="padding" style="padding: 1rem">
+                        <h5>Recently Added Products</h5>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover">
+                                <thead>
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $barang->nama_barang }}</td>
-                                        <td>{{ $barang->sku }}</td>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Nama Barang</th>
+                                        <th scope="col">SKU</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($barang_latest as $barang )
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $barang->nama_barang }}</td>
+                                            <td>{{ $barang->sku }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

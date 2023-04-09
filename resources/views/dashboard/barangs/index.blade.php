@@ -31,40 +31,40 @@
     </div> --}}
 
     {{-- filter --}}
-    <div class="filter-button">
-            <div class="row">
-                <div class="search">
-                    <form action="/dashboard/barangs">
-                        <div class="input-group ">
-                            <input type="text" class="form-control" placeholder="Search.." name="search">
-                            <button class="btn btn-outline-secondary" type="submit" id="search" value="{{ request('search') }}">Search</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="filter">
-                        <form action="/dashboard/barangs">
-                            <div class="category" style="flex-row">
-                                <select name="category" id="category" class="form-select">
-                                    <option value="">Pilih Category</option>
-                                    <option value="Jati">Jati</option>
-                                    <option value="Jepara">Jepara</option>
-                                    <option value="Kalimantan">Kalimantan</option>
-                                </select>
-                            </div>
-                            <div class="flashsale">
-                                <select name="flashsale" id="flashsale" class="form-select">
-                                    <option value="">Pilih Flashsale</option>
-                                    <option value="yes">Yes</option>
-                                    <option value="no">No</option>
-                                </select>
-                            </div>
-                            <div class="submit">
-                                <button type="submit" class="button btn-primary btn-sm">Submit</button>
-                            </div>
-                        </form>
+    <form action="/dashboard/barangs">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search.." name="search">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit" id="search" value="{{ request('search') }}">Search</button>
+                    </div>
                 </div>
             </div>
-    </div>
+        </div>
+    </form>
+    <form action="/dashboard/barangs">
+        <div class="row mt-3 mb-3" id="filter">
+            <div class="col-md-2 mb-2 category form-group">
+                <select name="category" id="category" class="form-select">
+                    <option value="">Pilih Category</option>
+                    <option value="Jati">Jati</option>
+                    <option value="Jepara">Jepara</option>
+                    <option value="Kalimantan">Kalimantan</option>
+                </select>
+            </div>
+            <div class="col-md-2 flashsale form-group">
+                <select name="flashsale" id="flashsale" class="form-select">
+                    <option value="">Pilih Flashsale</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="col-md-3 form-group mt-1">
+                <button type="submit" class="btn btn-primary btn-sm"><span data-feather="check-circle"></span></button>
+            </div>
+        </div>
+    </form>
 
     {{-- tabel barang --}}
     @if($barangs->count())
@@ -79,7 +79,6 @@
                         <th scope="col">Category</th>
                         <th scope="col">Flashsale</th>
                         <th scope="col">Action</th></th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -116,5 +115,6 @@
     <div class="d-flex justify-content-end mt-2">
         {{ $barangs->links() }}
     </div>
+
 
 @endsection

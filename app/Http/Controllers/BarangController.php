@@ -43,7 +43,7 @@ class BarangController extends Controller
         }
 
         return view('dashboard.barangs.index', [
-            'barangs' => $barang->paginate(2)->withQueryString()
+            'barangs' => $barang->paginate(5)->withQueryString()
         ]);
     }
 
@@ -61,6 +61,39 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+
+        // $this->validate($request, [
+        //     'gambar' => 'required',
+        //     'gambar.*' => 'image'
+        // ]);
+
+        // $files = [];
+        // if($request->hasfile('gambar'))
+        // {
+        //     foreach($request->file('gambar') as $file)
+        //     {
+        //         $name = time().rand(1,50).'.'.$file->extension();
+        //         $file->move(public_path('files'), $name);
+        //         $files[] = $name;
+        //     }
+        // }
+
+        // $file= new Barang();
+        // $file->gambar = $files;
+        // $file->nama_barang = $request->nama_barang;
+        // $file->sku = $request->sku;
+        // $file->warna = $request->warna;
+        // $file->category = $request->category;
+        // $file->stok = $request->stok;
+        // $file->flashsale = $request->flashsale;
+        // $file->harga = $request->harga;
+        // $file->harga_diskon = $request->harga_diskon;
+        // $file->deskripsi_produk = $request->deskripsi_produk;
+        // $file->ukuran = $request->ukuran;
+        // $file->bahan = $request->bahan;
+        // $file->save();
+
+        // return back()->with('success', 'Barang berhasil ditambahkan!');
 
         $validatedData = $request->validate([
             'nama_barang' => 'required|max:255',
@@ -114,6 +147,37 @@ class BarangController extends Controller
     public function update(Request $request, Barang $barang)
     {
         // dd($request->all());
+
+        // $this->validate($request, [
+        //     'gambar' => 'required',
+        //     'gambar.*' => 'image'
+        // ]);
+
+        // $files = [];
+        // if($request->hasfile('gambar'))
+        // {
+        //     foreach($request->file('gambar') as $file)
+        //     {
+        //         $name = time().rand(1,50).'.'.$file->extension();
+        //         $file->move(public_path('files'), $name);
+        //         $files[] = $name;
+        //     }
+        // }
+
+        // $file= Barang::where('id', $barang->id)->first();
+        // $file->gambar = $files;
+        // $file->nama_barang = $request->nama_barang;
+        // $file->sku = $request->sku;
+        // $file->warna = $request->warna;
+        // $file->category = $request->category;
+        // $file->stok = $request->stok;
+        // $file->flashsale = $request->flashsale;
+        // $file->harga = $request->harga;
+        // $file->harga_diskon = $request->harga_diskon;
+        // $file->deskripsi_produk = $request->deskripsi_produk;
+        // $file->ukuran = $request->ukuran;
+        // $file->bahan = $request->bahan;
+        // $file->save();
 
         $rules = [
             'nama_barang' => 'required|max:255',

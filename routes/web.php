@@ -31,6 +31,5 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 //logout
 Route::post('/logout', [LoginController::class, 'logout']);
 
-//barang
+// barang
 Route::resource('dashboard/barangs', BarangController::class)->middleware('auth');
-

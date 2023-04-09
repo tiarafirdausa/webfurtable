@@ -100,7 +100,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="harga_diskon" class="form-label">Harga Diskon</label>
+            <label for="harga_diskon"  class="form-label">Harga Diskon</label>
             <input name="harga_diskon" type="number" class="form-control @error('harga_diskon') is-invalid @enderror" id="harga_diskon" value="{{ old('harga_diskon', $barang->harga_diskon) }}">
             @error('harga_diskon')
                 <div class="invalid-feedback">
@@ -175,9 +175,23 @@
         oFReader.onload = function(oFREvent){
             imgPreview.src = oFREvent.target.result;
         }
-        // const blob = URL.createObjectURL(image.files[0]);
-        // imgPreview.src = blob;
     }
+
+    // var flashsale = document.getElementsByName("flashsale");
+    // var harga_diskon = document.getElementById("harga_diskon");
+    //     // Memasang event listener pada radio button
+    // for(var i=0; i<flashsale.length; i++) {
+    //     flashsale[i].addEventListener('click', function() {
+    //         // Jika pilihan 'yes' dipilih, tampilkan form field baru
+    //         if(this.value == 'yes') {
+    //             harga_diskon.style.display = 'block';
+    //         }
+    //         // Jika pilihan 'no' dipilih, sembunyikan form field baru
+    //         else {
+    //             harga_diskon.style.display = 'none';
+    //         }
+    //     });
+    // }
 </script>
 
 @endsection

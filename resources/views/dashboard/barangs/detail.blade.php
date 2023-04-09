@@ -15,8 +15,14 @@
     </form>
     <h2 class="mb-1 mt-3">{{ $barang->nama_barang }}</h2>
     <div class="row">
+        {{-- image --}}
+        <div class="detail-right col-lg-6 mt-2">
+            <div style="max-width: 30rem;">
+                <img src="{{ asset('storage/' . $barang->gambar) }}" alt="{{ $barang->category }}" class="img-fluid">
+            </div>
+        </div>
         {{-- detail barang --}}
-        <div class="detail-left col-lg-6">
+        <div class="detail-left col-lg-6 mt-2">
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <tbody>
@@ -62,12 +68,6 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-        {{-- image --}}
-        <div class="detail-right col-lg-6">
-            <div style="max-width: 30rem;">
-                <img src="{{ asset('storage/' . $barang->gambar) }}" alt="{{ $barang->category }}" class="img-fluid">
             </div>
         </div>
     </div>
