@@ -16,7 +16,7 @@
     <script type="text/javascript" src="/js/trix.js"></script>
 
     {{-- mystyle --}}
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/login.css">
 
     <!-- Logo Web -->
     <link rel="icon" href="{{ url('img/logo.png') }}">
