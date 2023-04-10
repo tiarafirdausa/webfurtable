@@ -28,7 +28,7 @@ Route::get('/product', function () {
     return view('catalog.product');
 });
 
-Route::get('/tentang', [CatalogController::class, 'tentang']);
+Route::get('/tentang', [CatalogController::class, 'tentang']); 
 //login
 Route::get('/login', [AdminController::class, 'index'])->name('login');
 Route::post('/login', [AdminController::class, 'login'])->name('login');
@@ -55,26 +55,9 @@ Route::middleware('auth:admins')->group(function(){
     Route::resource('dashboard/barangs', BarangController::class);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
 
-  });
+});
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Route::get('/tentang', function () {
-//     return view('catalog.tentang');
-// });
 //hubungi kami
 Route::get('/hubungi', function () {
     return view('catalog.hubungi');
@@ -83,4 +66,8 @@ Route::get('/hubungi', function () {
 //FAQs
 Route::get('/FAQ', function () {
     return view('catalog.faq');
+});
+
+Route::get('/tentang', function () {
+    return view('catalog.tentang');
 });
