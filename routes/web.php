@@ -6,6 +6,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\produkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,10 @@ Route::post('/logout', [AdminController::class, 'postLogout']);
 // barang
 Route::resource('dashboard/barangs', BarangController::class)->middleware('auth');
 
+// barang2
+Route::get('/product', [produkController::class,'index']);
+
+
 Route::middleware('auth:admins')->group(function(){
     // Tulis routemu di sini.
     Route::get('/admin', function () {
@@ -51,6 +56,8 @@ Route::middleware('auth:admins')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
 
   });
+
+
 
 
 

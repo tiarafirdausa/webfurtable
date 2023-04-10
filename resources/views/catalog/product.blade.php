@@ -22,7 +22,7 @@
         integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous" />
 
     <!--Style-->
-    <link rel="stylesheet" href="css/style copy.css" />
+    <link rel="stylesheet" href="/css/stylecopy2.css" />
 
     <!-- Title of Site -->
     <title>Home | FURTABLE</title>
@@ -33,6 +33,7 @@
 </head>
 
 <body>
+    
     <!-- Navbar start -->
     <nav class="navbar">
         <div>
@@ -47,14 +48,15 @@
                 <a href="/tentang">Tentang</a>
             </div>
         </div>
-
-        <div class="navbar-extra">
-            <div class="search-box">
-                <a><img src="img/header/search.svg" /></a>
-                <input type="search" placeholder="Search" />
+        <form>
+            <div class="navbar-extra">
+                <div class="search-box">
+                    <button type="submit"><img src="img/header/search.svg" /></button>
+                    <input name="search" type="search" placeholder="Search" />
+                </div>
+                <a href="#" id="hamburger-menu" class="menu"><i data-feather="menu"></i></a>
             </div>
-            <a href="#" id="hamburger-menu" class="menu"><i data-feather="menu"></i></a>
-        </div>
+        </form>
     </nav>
 
     <!-- Navbar end -->
@@ -119,47 +121,89 @@
 
 
     <!--  kategori -->
-    
-    <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-        
-    <section>
-        
-        <div class="kategori">
-            <div class="select-btn">
-                <span class="btn-text">Kategori</span>
-                <span class="arrow-dwn">
-                    <i class="fa-solid fa-chevron-down"></i>
-                </span>
-            </div>
 
-            <ul class="list-items">
-                <li class="item">
-                    <span class="checkbox">
-                        <i class="fa-solid fa-check check-icon"></i>
-                    </span>
-                    <span class="item-text">Ruang Tidur</span>
-                </li>
-                <li class="item">
-                    <span class="checkbox">
-                        <i class="fa-solid fa-check check-icon"></i>
-                    </span>
-                    <span class="item-text">Kamar</span>
-                </li>
-                <li class="item">
-                    <span class="checkbox">
-                        <i class="fa-solid fa-check check-icon"></i>
-                    </span>
-                    <span class="item-text">Ruang Tamu</span>
-                </li>
-                <li class="item">
-                    <span class="checkbox">
-                        <i class="fa-solid fa-check check-icon"></i>
-                    </span>
-                    <span class="item-text">Teras</span>
-                </li>
-            </ul>
-        </div>
+    <section>
+        <div class="container2">
+            <div class="produk">
+                <div class="atas">
+                    <form action="/product">
+                        @csrf
+                        <select name="kategori" id="kategori"
+                            class="w-full px-3 py-[7px] rounded-xl text-sm text-black font-poppins font-medium border border-[#8D72E1] focus:outline-none appearance-none cursor-pointer">
+                            <option disabled selected value="">Kategori</option>
+                            <option class="text-sm text-black font-poppins font-medium bg-white" value="" selected>
+                                Kategori</option>
+                            <option class="text-sm text-black font-poppins font-medium bg-white" value="Ruang Tamu">Ruang Tamu
+                            </option>
+                            <option class="text-sm text-black font-poppins font-medium bg-white" value="Kamar">kamar</option>
+                            <option class="text-sm text-black font-poppins font-medium bg-white" value="Teras">Teras</option>
+                            <option class="text-sm text-black font-poppins font-medium bg-white" value="Dapur">Dapur</option>
+
+                            
+                        </select>
+
+                        <select name="harga" id="harga"
+                            class="w-full px-3 py-[7px] rounded-xl text-sm text-black font-poppins font-medium border border-[#8D72E1] focus:outline-none appearance-none cursor-pointer">
+                            <option disabled selected value="">harga</option>
+                            <option class="text-sm text-black font-poppins font-medium bg-white" value="" selected>harga
+                            </option>
+                            <option class="text-sm text-black font-poppins font-medium bg-white" value="1">0 - 1 Juta
+                            </option>
+                            <option class="text-sm text-black font-poppins font-medium bg-white" value="2">1 Juta - 5
+                                Juta</option>
+                            <option class="text-sm text-black font-poppins font-medium bg-white" value="3"> 5 Juta
+                            </option>
+
+                            
+                        </select>
+ 
+                        <select name="bahan" id="bahan"
+                            class="w-full px-3 py-[7px] rounded-xl text-sm text-black font-poppins font-medium border border-[#8D72E1] focus:outline-none appearance-none cursor-pointer">
+                            <option disabled selected value="">Bahan</option>
+                            <option class="text-sm text-black font-poppins font-medium bg-white" value="" selected>Bahan
+                            </option>
+                            <option class="text-sm text-black font-poppins font-medium bg-white" value="Jati">Kayu Jati
+                            </option>
+                            <option class="text-sm text-black font-poppins font-medium bg-white" value="Jepara">Kayu Jepara
+                            </option>
+                            <option class="text-sm text-black font-poppins font-medium bg-white" value="Trembesi">Kayu Trembesi
+                            </option>
+
+                            
+                        </select>
+
+                        <button type="submit">Submit</button>
+
+                    </form>
+
+                    
+                    
+                </div>
+
+                <div class="bawah">
+                    <div class="row">
+                        @foreach($barangs as $barang)
+                        <div class="column">
+                            
+                            <div class="card">
+                                <img src="/gambar/{{$barang->gambar[0]}}">
+                                <h3>{{$barang -> nama_barang}}</h3>
+                                <p>{{$barang -> deskripsi_produk}}</p>
+                                <p>{{$barang -> harga}}</p>
+                                <a href="/">Lihat Barang</a>
+                            </div>
+                        </div>
+                        @endforeach
+                
+                    </div>
+                </div>
+            </div>
+                     
+
+
+
+
 
     </section>
 
