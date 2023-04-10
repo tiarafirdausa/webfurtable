@@ -39,6 +39,7 @@ Route::post('/login', [AdminController::class, 'login'])->name('login');
 Route::post('/logout', [AdminController::class, 'postLogout']);
 
 // barang
+Route::resource('dashboard/barangs', BarangController::class)->middleware('auth');
 
 Route::middleware('auth:admins')->group(function(){
     // Tulis routemu di sini.
@@ -49,8 +50,16 @@ Route::middleware('auth:admins')->group(function(){
     Route::resource('dashboard/barangs', BarangController::class);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
 
-
   });
+
+
+
+
+
+
+
+
+
 
 
 
@@ -59,8 +68,12 @@ Route::middleware('auth:admins')->group(function(){
 // Route::get('/tentang', function () {
 //     return view('catalog.tentang');
 // });
+//hubungi kami
+Route::get('/hubungi', function () {
+    return view('catalog.hubungi');
+});
 
-
-
-
-
+//FAQs
+Route::get('/FAQ', function () {
+    return view('catalog.faq');
+});
