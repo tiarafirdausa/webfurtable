@@ -22,9 +22,10 @@
             <label for="category" class="form-label">Category</label>
             <select class="form-select" name="category"  id="category" onchange="updateSku()">
                 <option value="">Pilih Category</option>
-                <option value="Jati">Jati</option>
-                <option value="Jepara">Jepara</option>
-                <option value="Kalimantan">Kalimantan</option>
+                <option value="Ruang Tamu">Ruang Tamu</option>
+                <option value="Kamar">Kamar</option>
+                <option value="Dapur">Dapur</option>
+                <option value="Teras">Teras</option>
             </select>
         </div>
 
@@ -37,6 +38,16 @@
             <label for="stok" class="form-label">Stok</label>
             <input name="stok" type="number" min="0" class="form-control @error('stok') is-invalid @enderror" id="stok" required autofocus value="{{ old('stok') }}">
             @error('stok')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="gambar" class="form-label">Gambar Detail</label>
+            <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar[]" multiple required>
+            @error('gambar')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
@@ -57,16 +68,6 @@
             <label for="gambarWarna" class="form-label">Gambar Warna</label>
             <input class="form-control @error('gambarWarna') is-invalid @enderror" type="file" id="gambarWarna" name="gambarWarna[]" multiple required>
             @error('gambarWarna')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-        </div>
-
-        <div class="mb-3">
-            <label for="gambar" class="form-label">Gambar Detail</label>
-            <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar[]" multiple required>
-            @error('gambar')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
@@ -117,30 +118,20 @@
             @enderror
         </div>
 
-        {{-- <div class="mb-3">
-            <label for="ukuran" class="form-label">Ukuran</label>
-            <textarea name="ukuran" type="text-area" class="form-control @error('ukuran') is-invalid @enderror" id="ukuran" >{{ old('ukuran') }}</textarea>
-            @error('ukuran')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
+        <div class="mb-3">
+            <label for="bahan" class="form-label">Bahan</label>
+            <input id="bahan" type="hidden" name="bahan" value="{{ old('bahan') }}">
+            <trix-editor input="bahan"></trix-editor>
+            @error('bahan')
+                <p class="text-danger"><small>{{ $message }}</small></p>
             @enderror
-        </div> --}}
+        </div>
 
         <div class="mb-3">
             <label for="ukuran" class="form-label">Ukuran</label>
             <input id="ukuran" type="hidden" name="ukuran" value="{{ old('ukuran') }}">
             <trix-editor input="ukuran"></trix-editor>
             @error('ukuran')
-                <p class="text-danger"><small>{{ $message }}</small></p>
-            @enderror
-        </div>
-
-        <div class="mb-3">
-            <label for="bahan" class="form-label">Bahan</label>
-            <input id="bahan" type="hidden" name="bahan" value="{{ old('bahan') }}">
-            <trix-editor input="bahan"></trix-editor>
-            @error('bahan')
                 <p class="text-danger"><small>{{ $message }}</small></p>
             @enderror
         </div>
@@ -154,37 +145,23 @@
         var category = document.getElementById("category").value;
         var skuInput = document.getElementById("sku");
 
-        if (category === "Jati") {
+        if (category === "Ruang Tamu") {
             var randNum = Math.floor(Math.random() * 1000);
-            skuInput.value = "MJ-JT-" + randNum;
+            skuInput.value = "FT-RT-" + randNum;
 
-        } else if (category === "Jepara") {
+        } else if (category === "Kamar") {
             var randNum = Math.floor(Math.random() * 1000);
-            skuInput.value = "MJ-JP-" + randNum;
+            skuInput.value = "FT-KM-" + randNum;
 
-        } else if (category === "Kalimantan") {
+        } else if (category === "Dapur") {
             var randNum = Math.floor(Math.random() * 1000);
-            skuInput.value = "MJ-KN-" + randNum;
+            skuInput.value = "FT-DP-" + randNum;
+        } else if (category === "Teras") {
+            var randNum = Math.floor(Math.random() * 1000);
+            skuInput.value = "FT-TR-" + randNum;
         } else {
-            skuInput.value = "MJ-";
+            skuInput.value = "FT-";
         }
-    }
-
-    function previewImage(){
-        const image = document.querySelector('#gambar');
-        const imgPreview = document.querySelector('.img-preview');
-
-        imgPreview.style.display = 'blok';
-
-        const oFReader = new FileReader();
-        oFReader.readAsDataURL(image.file[0]);
-
-        oFReader.onload = function(oFREvent){
-            imgPreview.src = oFREvent.target.result;
-        }
-
-        // const blob = URL.createObjectURL(image.files[0]);
-        // imgPreview.src = blob;
     }
 
     document.addEventListener('trix-file-accept', function(e){

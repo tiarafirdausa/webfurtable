@@ -66,8 +66,8 @@ class BarangController extends Controller
             'warna' => 'required|max:255',
             'category' => 'required',
             'stok' => 'numeric|min:0|required',
-            'gambar.*' => 'image|file|max:2048',
-            'gambarWarna.*' => 'image|file|max:2048',
+            'gambar.*' => 'image|file|max:10240',
+            'gambarWarna.*' => 'image|file|max:10240',
             'flashsale' => 'required',
             'harga' => 'required|max:20',
             'harga_diskon' => 'max:20',
@@ -131,14 +131,16 @@ class BarangController extends Controller
         $rules = [
             'nama_barang' => 'required|max:255',
             'warna' => 'required|max:255',
-            'gambar.*' => 'image|file|max:2048',
-            'gambarWarna.*' => 'image|file|max:2048',
+            'gambar.*' => 'image|file|max:10240',
+            'gambarWarna.*' => 'image|file|max:10240',
+            'stok' => 'numeric|min:0|required',
             'flashsale' => 'required',
             'harga' => 'required|max:20',
             'harga_diskon' => 'max:20',
             'deskripsi_produk' => 'required',
             'ukuran' => 'required',
             'bahan' => 'required',
+            'category' => 'sometimes|required',
         ];
 
         //update sku
@@ -148,7 +150,7 @@ class BarangController extends Controller
 
         $validatedData = $request->validate($rules);
 
-        //update image dan hapus yang lama
+        //update image
         if($request->hasFile('gambar')){
             $gambarPaths = [];
             foreach($request->file('gambar') as $gambar){
@@ -158,7 +160,7 @@ class BarangController extends Controller
             $validatedData['gambar'] = json_encode($gambarPaths);
         }
 
-        //update image dan hapus yang lama
+        //update image
         if($request->hasFile('gambarWarna')){
             $gambarPaths = [];
             foreach($request->file('gambarWarna') as $gambar){
@@ -168,20 +170,33 @@ class BarangController extends Controller
             $validatedData['gambarWarna'] = json_encode($gambarPaths);
         }
 
-        // Barang::where('id', $barang->id)->update($validatedData);
-
-        Barang::where('id', $barang->id)->update([
+        // Update the database, including only the fields that have been changed
+        $updateData = [
             'nama_barang' => $validatedData['nama_barang'],
             'warna' => $validatedData['warna'],
-            'gambar' => isset($validatedData['gambar']) ? json_encode($validatedData['gambar']) : $barang->gambar,
-            'gambarWarna' => isset($validatedData['gambarWarna']) ? json_encode($validatedData['gambarWarna']) : $barang->gambarWarna,
             'flashsale' => $validatedData['flashsale'],
+            'stok' => $validatedData['stok'],
+            'category' => $validatedData['category'],
             'harga' => $validatedData['harga'],
             'harga_diskon' => $validatedData['harga_diskon'],
             'deskripsi_produk' => $validatedData['deskripsi_produk'],
             'ukuran' => $validatedData['ukuran'],
             'bahan' => $validatedData['bahan'],
-        ]);
+        ];
+
+        if (isset($validatedData['sku'])) {
+            $updateData['sku'] = $validatedData['sku'];
+        }
+
+        if (isset($validatedData['gambar'])) {
+            $updateData['gambar'] = json_encode($validatedData['gambar']);
+        }
+
+        if (isset($validatedData['gambarWarna'])) {
+            $updateData['gambarWarna'] = json_encode($validatedData['gambarWarna']);
+        }
+
+        Barang::where('id', $barang->id)->update($updateData);
 
         return redirect('/dashboard/barangs')->with('success', 'Barang berhasil diperbaharui!');
     }

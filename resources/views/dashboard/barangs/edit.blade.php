@@ -23,9 +23,10 @@
             <label for="category" class="form-label">Category</label>
             <select class="form-select" name="category"  id="category" onchange="updateSku()" >
                 <option value="">Pilih Category</option>
-                <option value="Jati" {{ $barang->category == 'Jati' ? 'selected' : '' }}>Jati</option>
-                <option value="Jepara" {{ $barang->category == 'Jepara' ? 'selected' : '' }}>Jepara</option>
-                <option value="Kalimantan" {{ $barang->category == 'Kalimantan' ? 'selected' : '' }}>Kalimantan</option>
+                <option value="Ruang Tamu" {{ $barang->category == 'Ruang Tamu' ? 'selected' : '' }}>Ruang Tamu</option>
+                <option value="Kamar" {{ $barang->category == 'Kamar' ? 'selected' : '' }}>Kamar</option>
+                <option value="Dapur" {{ $barang->category == 'Dapur' ? 'selected' : '' }}>Dapur</option>
+                <option value="Teras" {{ $barang->category == 'Teras' ? 'selected' : '' }}>Teras</option>
             </select>
         </div>
 
@@ -50,6 +51,16 @@
         </div>
 
         <div class="mb-3">
+            <label for="gambar" class="form-label">Gambar</label>
+            <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar[]" multiple>
+            @error('gambar')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
             <label for="warna" class="form-label">Warna</label>
             <input name="warna" type="text" class="form-control @error('warna') is-invalid @enderror" id="warna" required value="{{ old('warna', $barang->warna) }}">
             @error('warna')
@@ -59,21 +70,10 @@
             @enderror
         </div>
 
-
         <div class="mb-3">
             <label for="gambarWarna" class="form-label">Gambar Warna</label>
             <input class="form-control @error('gambarWarna') is-invalid @enderror" type="file" id="gambarWarna" name="gambarWarna[]" multiple>
             @error('gambarWarna')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-        </div>
-
-        <div class="mb-3">
-            <label for="gambar" class="form-label">Gambar</label>
-            <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar[]" multiple>
-            @error('gambar')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
@@ -124,30 +124,20 @@
             @enderror
         </div>
 
-        {{-- <div class="mb-3">
-            <label for="ukuran" class="form-label">Ukuran</label>
-            <textarea name="ukuran" type="text" class="form-control @error('ukuran') is-invalid @enderror" id="ukuran" >{{ old('ukuran', $barang->ukuran) }}</textarea>
-            @error('ukuran')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
+        <div class="mb-3">
+            <label for="bahan" class="form-label">Bahan</label>
+            <input id="bahan" type="hidden" name="bahan" value="{{ old('bahan', $barang->bahan) }}">
+            <trix-editor input="bahan"></trix-editor>
+            @error('bahan')
+                <p class="text-danger"><small>{{ $message }}</small></p>
             @enderror
-        </div> --}}
+        </div>
 
         <div class="mb-3">
             <label for="ukuran" class="form-label">Ukuran</label>
             <input id="ukuran" type="hidden" name="ukuran" value="{{ old('ukuran', $barang->ukuran) }}">
             <trix-editor input="ukuran"></trix-editor>
             @error('ukuran')
-                <p class="text-danger"><small>{{ $message }}</small></p>
-            @enderror
-        </div>
-
-        <div class="mb-3">
-            <label for="bahan" class="form-label">Bahan</label>
-            <input id="bahan" type="hidden" name="bahan" value="{{ old('bahan', $barang->bahan) }}">
-            <trix-editor input="bahan"></trix-editor>
-            @error('bahan')
                 <p class="text-danger"><small>{{ $message }}</small></p>
             @enderror
         </div>
@@ -161,33 +151,22 @@
         var category = document.getElementById("category").value;
         var skuInput = document.getElementById("sku");
 
-        if (category === "JT") {
+        if (category === "Ruang Tamu") {
             var randNum = Math.floor(Math.random() * 1000);
-            skuInput.value = "MJ-JT-" + randNum;
+            skuInput.value = "FT-RT-" + randNum;
 
-        } else if (category === "JP") {
+        } else if (category === "Kamar") {
             var randNum = Math.floor(Math.random() * 1000);
-            skuInput.value = "MJ-JP-" + randNum;
+            skuInput.value = "FT-KM-" + randNum;
 
-        } else if (category === "KN") {
+        } else if (category === "Dapur") {
             var randNum = Math.floor(Math.random() * 1000);
-            skuInput.value = "MJ-KN-" + randNum;
+            skuInput.value = "FT-DP-" + randNum;
+        } else if (category === "Teras") {
+            var randNum = Math.floor(Math.random() * 1000);
+            skuInput.value = "FT-TR-" + randNum;
         } else {
-            skuInput.value = "MJ-";
-        }
-    }
-
-    function previewImage(){
-        const image = document.querySelector('#gambar');
-        const imgPreview = document.querySelector('.img-preview');
-
-        imgPreview.style.display = 'blok';
-
-        const oFReader = new FileReader();
-        oFReader.readAsDataURL(image.file[0]);
-
-        oFReader.onload = function(oFREvent){
-            imgPreview.src = oFREvent.target.result;
+            skuInput.value = "FT-";
         }
     }
 </script>

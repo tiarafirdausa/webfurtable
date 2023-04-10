@@ -26,10 +26,6 @@ Route::get('/home', function () {
     return view('catalog.home');
 });
 
-// Route::get('/tentang', function () {
-//     return view('catalog.tentang');
-// });
-
 Route::get('/product', function () {
     return view('catalog.product');
 });
