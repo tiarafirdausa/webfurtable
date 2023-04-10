@@ -188,7 +188,7 @@
                 <div class="deskripsi">
                     <h4>Kursi kayu jati</h4>
                     <h3>{{ $barang->nama_barang }}</h3>
-                    <h2>Rp {{ $barang->harga }}</h2>
+                    <h2>{{ 'Rp '. number_format( $barang->harga, 0, ',', '.') }}</h2>
                 </div>
                 <p>Lihat detail</p>
             </div>
