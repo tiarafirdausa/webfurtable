@@ -14,22 +14,15 @@
         <button class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span> Delete</button>
     </form>
     <h2 class="mb-1 mt-3">{{ $barang->nama_barang }}</h2>
-    <div class="row">
+    <div class="row" >
         {{-- image --}}
-        <div class="detail-right col-lg-6 mt-2">
-            <div style="max-width: 10rem;">
-                @foreach(json_decode($barang->gambar) as $gambar)
-                    <img src="{{ asset('storage/'.$gambar) }}" alt="gambar" class="img-fluid">
-                @endforeach
-                {{-- <img src="{{ asset('storage/' . $barang->gambar) }}" alt="{{ $barang->category }}" class="img-fluid"> --}}
+        <div class="detail-right col-lg-5 mt-2">
+            <div class="mb-2">
+                <?php foreach (($barang->gambar)as $picture) { ?>
+                    <img src="{{ asset('/gambar/'.$picture) }}" style="height:12rem; width:15.8rem" class="mb-2"/>
+                <?php } ?>
             </div>
 
-            <div style="max-width: 10rem;">
-                @foreach(json_decode($barang->gambarWarna) as $gambar)
-                    <img src="{{ asset('storage/'.$gambar) }}" alt="gambar" class="img-fluid">
-                @endforeach
-                {{-- <img src="{{ asset('storage/' . $barang->gambar) }}" alt="{{ $barang->category }}" class="img-fluid"> --}}
-            </div>
         </div>
         {{-- detail barang --}}
         <div class="detail-left col-lg-6 mt-2">
@@ -45,8 +38,12 @@
                             <td>{{ $barang->sku }}</td>
                         </tr>
                         <tr>
-                            <td>Catgory</td>
-                            <td>{{ $barang->category }}</td>
+                            <td>Bahan</td>
+                            <td>{{ $barang->bahan }}</td>
+                        </tr>
+                        <tr>
+                            <td>Kategori Ruang</td>
+                            <td>{!! $barang->kategori !!}</td>
                         </tr>
                         <tr>
                             <td>Warna</td>
@@ -71,10 +68,6 @@
                         <tr>
                             <td>Ukuran</td>
                             <td>{!! $barang->ukuran !!}</td>
-                        </tr>
-                        <tr>
-                            <td>Bahan</td>
-                            <td>{!! $barang->bahan !!}</td>
                         </tr>
                     </tbody>
                 </table>
