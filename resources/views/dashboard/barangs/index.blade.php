@@ -18,9 +18,20 @@
         <a href="/dashboard/barangs/create" class="btn btn-primary mb-3">Tambah Barang</a>
     </div>
 
-    {{-- search --}}
+    {{-- searching
+    <div class="row">
+        <div class="col-md-4 ">
+            <form action="/dashboard/barangs">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search.." name="search">
+                    <button class="btn btn-outline-secondary" type="submit" id="search" value="{{ request('search') }}">Search</button>
+                </div>
+            </form>
+        </div>
+    </div> --}}
+
+    {{-- filter --}}
     <form action="/dashboard/barangs">
-        @csrf
         <div class="row">
             <div class="col-md-5">
                 <div class="input-group">
@@ -32,18 +43,14 @@
             </div>
         </div>
     </form>
-
-    {{-- filter --}}
     <form action="/dashboard/barangs">
-        @csrf
         <div class="row mt-3 mb-3" id="filter">
             <div class="col-md-2 mb-2 category form-group">
                 <select name="category" id="category" class="form-select">
                     <option value="">Pilih Category</option>
-                    <option value="Ruang Tamu">Ruang Tamu</option>
-                    <option value="Kamar">Kamar</option>
-                    <option value="Dapur">Dapur</option>
-                    <option value="Teras">Teras</option>
+                    <option value="Jati">Jati</option>
+                    <option value="Jepara">Jepara</option>
+                    <option value="Kalimantan">Kalimantan</option>
                 </select>
             </div>
             <div class="col-md-2 flashsale form-group">
@@ -69,7 +76,9 @@
                         <th scope="col">Nama Barang</th>
                         <th scope="col">SKU</th>
                         <th scope="col">Stok</th>
-                        <th scope="col">Category</th>
+                        <th scope="col">Bahan</th>
+                        <th scope="col">Kategori</th>
+                        <th scope="col">gambar</th>
                         <th scope="col">Flashsale</th>
                         <th scope="col">Action</th></th>
                     </tr>
@@ -81,7 +90,12 @@
                             <td>{{ $barang->nama_barang }}</td>
                             <td>{{ $barang->sku }}</td>
                             <td>{{ $barang->stok }}</td>
-                            <td>{{ $barang->category}}</td>
+                            <td>{{ $barang->bahan}}</td>
+                            <td>{{ $barang->kategori}}</td>
+                            <td> <?php foreach (($barang->gambar)as $picture) { ?>
+                 <img src="{{ asset('/gambar/'.$picture) }}" style="height:120px; width:200px"/>
+                <?php } ?>
+           </td>
                             <td>{{ $barang->flashsale }}</td>
                             <td>
                                 <a href="/dashboard/barangs/{{ $barang->id }}" class="badge bg-info"><span data-feather="eye"></span></a>
