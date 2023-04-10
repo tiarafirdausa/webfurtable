@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-class User extends Authenticatable implements JWTSubject
+class Admin extends User implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -17,6 +17,7 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array<int, string>
      */
+    protected $guard = 'admins';
     protected $fillable = [
         'name',
         'email',

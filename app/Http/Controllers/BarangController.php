@@ -66,39 +66,47 @@ class BarangController extends Controller
             'warna' => 'required|max:255',
             'category' => 'required',
             'stok' => 'numeric|min:0|required',
-            'gambar.*' => 'image|file|max:10240',
-            'gambarWarna.*' => 'image|file|max:10240',
+            'gambar.*' => 'image|file|max:2048',
+            'kategori' => 'required',
             'flashsale' => 'required',
             'harga' => 'required|max:20',
             'harga_diskon' => 'max:20',
             'deskripsi_produk' => 'required',
             'ukuran' => 'required',
-            'bahan' => 'required'
+           
         ]);
 
         //gambar
-        if($request->hasFile('gambar')){
-            $gambarPaths = [];
-            foreach($request->file('gambar') as $gambar){
-                $gambarPath = $gambar->store('post-gambar');
-                array_push($gambarPaths, $gambarPath);
+        $files = [];
+        if($request->hasfile('gambar'))
+         {
+            foreach($request->file('gambar') as $file)
+            {
+                $name = time().rand(1,50).'.'.$file->extension();
+                $file->move(public_path('gambar'), $name);  
+                $files[] = $name;  
             }
-            $validatedData['gambar'] = json_encode($gambarPaths);
-        }
+         }
+        
+         $file= new Barang();
+       
+         $file->nama_barang = $request->nama_barang;
+         $file->sku = $request->sku;
+         $file->warna = $request->warna;
+         $file->bahan = $request->category;
+         $file->stok = $request->stok;
+         $file->gambar = $files;
+         $file->kategori = $request->kategori;
+         $file->flashsale = $request->flashsale;
+         $file->harga = $request->harga;
+         $file->harga_diskon = $request->harga_diskon;
+         $file->deskripsi_produk = $request->deskripsi_produk;
+         $file->ukuran = $request->ukuran;
+         $file->save();
 
-        //gambarWarna
-        if($request->hasFile('gambarWarna')){
-            $gambarPaths = [];
-            foreach($request->file('gambarWarna') as $gambar){
-                $gambarPath = $gambar->store('post-gambar');
-                array_push($gambarPaths, $gambarPath);
-            }
-            $validatedData['gambarWarna'] = json_encode($gambarPaths);
-        }
+    
 
-        $validatedData['user_id'] = auth()->user()->id;
-
-        Barang::create($validatedData);
+        
 
         return redirect('/dashboard/barangs')->with('success', 'Barang berhasil ditambahkan!');
     }
@@ -131,16 +139,14 @@ class BarangController extends Controller
         $rules = [
             'nama_barang' => 'required|max:255',
             'warna' => 'required|max:255',
-            'gambar.*' => 'image|file|max:10240',
-            'gambarWarna.*' => 'image|file|max:10240',
-            'stok' => 'numeric|min:0|required',
+            'gambar.*' => 'image|file|max:2048',
+            'gambarWarna.*' => 'image|file|max:2048',
             'flashsale' => 'required',
             'harga' => 'required|max:20',
             'harga_diskon' => 'max:20',
             'deskripsi_produk' => 'required',
             'ukuran' => 'required',
-            'bahan' => 'required',
-            'category' => 'sometimes|required',
+            'category' => 'required',
         ];
 
         //update sku
@@ -150,53 +156,41 @@ class BarangController extends Controller
 
         $validatedData = $request->validate($rules);
 
-        //update image
-        if($request->hasFile('gambar')){
-            $gambarPaths = [];
-            foreach($request->file('gambar') as $gambar){
-                $gambarPath = $gambar->store('post-gambar');
-                array_push($gambarPaths, $gambarPath);
-            }
-            $validatedData['gambar'] = json_encode($gambarPaths);
+        //update image dan hapus yang lama
+        if($request->hasfile('gambar'))
+        {
+           foreach($request->file('gambar') as $file)
+           {
+               $name = time().rand(1,50).'.'.$file->extension();
+               $file->move(public_path('gambar'), $name);  
+               $files[] = $name;  
+           }
+           $validatedData['gambar'] = $files;
         }
-
-        //update image
-        if($request->hasFile('gambarWarna')){
+       
+        //update image dan hapus yang lama
+        /*if($request->hasFile('gambarWarna')){
             $gambarPaths = [];
             foreach($request->file('gambarWarna') as $gambar){
                 $gambarPath = $gambar->store('post-gambar');
                 array_push($gambarPaths, $gambarPath);
             }
             $validatedData['gambarWarna'] = json_encode($gambarPaths);
-        }
+        }*/
 
-        // Update the database, including only the fields that have been changed
-        $updateData = [
+        // Barang::where('id', $barang->id)->update($validatedData);
+
+        Barang::where('id', $barang->id)->update([
             'nama_barang' => $validatedData['nama_barang'],
             'warna' => $validatedData['warna'],
+            'gambar' => $validatedData['gambar'] ,
             'flashsale' => $validatedData['flashsale'],
-            'stok' => $validatedData['stok'],
-            'category' => $validatedData['category'],
             'harga' => $validatedData['harga'],
             'harga_diskon' => $validatedData['harga_diskon'],
             'deskripsi_produk' => $validatedData['deskripsi_produk'],
             'ukuran' => $validatedData['ukuran'],
-            'bahan' => $validatedData['bahan'],
-        ];
-
-        if (isset($validatedData['sku'])) {
-            $updateData['sku'] = $validatedData['sku'];
-        }
-
-        if (isset($validatedData['gambar'])) {
-            $updateData['gambar'] = json_encode($validatedData['gambar']);
-        }
-
-        if (isset($validatedData['gambarWarna'])) {
-            $updateData['gambarWarna'] = json_encode($validatedData['gambarWarna']);
-        }
-
-        Barang::where('id', $barang->id)->update($updateData);
+            'bahan' => $validatedData['category'],
+        ]);
 
         return redirect('/dashboard/barangs')->with('success', 'Barang berhasil diperbaharui!');
     }
