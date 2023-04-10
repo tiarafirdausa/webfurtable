@@ -17,9 +17,14 @@ class BarangController extends Controller
 
         $barang = Barang::oldest();
 
-        //category
-        $barang->when($request->category, function($query) use ($request){
-            return $query->where('category', $request->category);
+        //bahan
+        $barang->when($request->bahan, function($query) use ($request){
+            return $query->where('bahan', $request->bahan);
+        });
+
+        //kategori
+        $barang->when($request->kategori, function($query) use ($request){
+            return $query->where('kategori', $request->kategori);
         });
 
         //flashsale
@@ -30,16 +35,16 @@ class BarangController extends Controller
         //search
         if(request('search')){
             $barang->where('nama_barang', 'like', '%' . request('search') . '%')
+                ->orWhere('bahan', 'like', '%' . request('search') . '%')
                     ->orWhere('sku', 'like', '%' . request('search') . '%')
-                    ->orWhere('ukuran', 'like', '%' . request('search') . '%')
-                    ->orWhere('deskripsi_produk', 'like', '%' . request('search') . '%')
-                    ->orWhere('category', 'like', '%' . request('search') . '%')
-                    ->orWhere('warna', 'like', '%' . request('search') . '%')
-                    ->orWhere('bahan', 'like', '%' . request('search') . '%')
+                    ->orWhere('kategori', 'like', '%' . request('search') . '%')
                     ->orWhere('stok', 'like', '%' . request('search') . '%')
+                    ->orWhere('warna', 'like', '%' . request('search') . '%')
                     ->orWhere('flashsale', 'like', '%' . request('search') . '%')
                     ->orWhere('harga', 'like', '%' . request('search') . '%')
-                    ->orWhere('harga_diskon', 'like', '%' . request('search') . '%');
+                    ->orWhere('harga_diskon', 'like', '%' . request('search') . '%')
+                    ->orWhere('deskripsi_produk', 'like', '%' . request('search') . '%')
+                    ->orWhere('ukuran', 'like', '%' . request('search') . '%');
         }
 
         return view('dashboard.barangs.index', [
@@ -62,51 +67,43 @@ class BarangController extends Controller
     {
         $validatedData = $request->validate([
             'nama_barang' => 'required|max:255',
+            'bahan' => 'required',
             'sku' => 'required|unique:barangs',
-            'warna' => 'required|max:255',
-            'category' => 'required',
-            'stok' => 'numeric|min:0|required',
-            'gambar.*' => 'image|file|max:2048',
             'kategori' => 'required',
+            'stok' => 'numeric|min:0|required',
+            'warna' => 'required|max:255',
             'flashsale' => 'required',
             'harga' => 'required|max:20',
             'harga_diskon' => 'max:20',
             'deskripsi_produk' => 'required',
             'ukuran' => 'required',
-           
         ]);
 
         //gambar
         $files = [];
-        if($request->hasfile('gambar'))
-         {
-            foreach($request->file('gambar') as $file)
-            {
+        if($request->hasfile('gambar')){
+            foreach($request->file('gambar') as $file){
                 $name = time().rand(1,50).'.'.$file->extension();
-                $file->move(public_path('gambar'), $name);  
-                $files[] = $name;  
+                $file->move(public_path('gambar'), $name);
+                $files[] = $name;
             }
-         }
-        
-         $file= new Barang();
-       
-         $file->nama_barang = $request->nama_barang;
-         $file->sku = $request->sku;
-         $file->warna = $request->warna;
-         $file->bahan = $request->category;
-         $file->stok = $request->stok;
-         $file->gambar = $files;
-         $file->kategori = $request->kategori;
-         $file->flashsale = $request->flashsale;
-         $file->harga = $request->harga;
-         $file->harga_diskon = $request->harga_diskon;
-         $file->deskripsi_produk = $request->deskripsi_produk;
-         $file->ukuran = $request->ukuran;
-         $file->save();
+        }
 
-    
+        $file= new Barang();
 
-        
+        $file->nama_barang = $validatedData['nama_barang'];
+        $file->bahan = $validatedData['bahan'];
+        $file->sku = $validatedData['sku'];
+        $file->kategori = $validatedData['kategori'];
+        $file->stok = $validatedData['stok'];
+        $file->warna = $validatedData['warna'];
+        $file->gambar = $files;
+        $file->flashsale = $validatedData['flashsale'];
+        $file->harga = $validatedData['harga'];
+        $file->harga_diskon = $validatedData['harga_diskon'];
+        $file->deskripsi_produk = $validatedData['deskripsi_produk'];
+        $file->ukuran = $validatedData['ukuran'];
+        $file->save();
 
         return redirect('/dashboard/barangs')->with('success', 'Barang berhasil ditambahkan!');
     }
@@ -138,15 +135,15 @@ class BarangController extends Controller
     {
         $rules = [
             'nama_barang' => 'required|max:255',
+            'bahan' => 'required',
+            'kategori' => 'required',
+            'stok' => 'numeric|min:0|required',
             'warna' => 'required|max:255',
-            'gambar.*' => 'image|file|max:2048',
-            'gambarWarna.*' => 'image|file|max:2048',
             'flashsale' => 'required',
             'harga' => 'required|max:20',
             'harga_diskon' => 'max:20',
             'deskripsi_produk' => 'required',
             'ukuran' => 'required',
-            'category' => 'required',
         ];
 
         //update sku
@@ -156,41 +153,31 @@ class BarangController extends Controller
 
         $validatedData = $request->validate($rules);
 
-        //update image dan hapus yang lama
+        //update image
         if($request->hasfile('gambar'))
         {
-           foreach($request->file('gambar') as $file)
-           {
-               $name = time().rand(1,50).'.'.$file->extension();
-               $file->move(public_path('gambar'), $name);  
-               $files[] = $name;  
-           }
-           $validatedData['gambar'] = $files;
-        }
-       
-        //update image dan hapus yang lama
-        /*if($request->hasFile('gambarWarna')){
-            $gambarPaths = [];
-            foreach($request->file('gambarWarna') as $gambar){
-                $gambarPath = $gambar->store('post-gambar');
-                array_push($gambarPaths, $gambarPath);
+            //hapus gambar lama jika ada
+            $oldFiles = $barang->gambar;
+            if($oldFiles != null){
+                foreach($oldFiles as $oldFile){
+                    $file_path = public_path('gambar/'.$oldFile);
+                    if (file_exists($file_path)) {
+                        unlink($file_path);
+                    }
+                }
             }
-            $validatedData['gambarWarna'] = json_encode($gambarPaths);
-        }*/
 
-        // Barang::where('id', $barang->id)->update($validatedData);
+            //simpan gambar baru
+            $files = [];
+            foreach($request->file('gambar') as $file){
+                $name = time().rand(1,50).'.'.$file->extension();
+                $file->move(public_path('gambar'), $name);
+                $files[] = $name;
+            }
+            $validatedData['gambar'] = $files;
+        }
 
-        Barang::where('id', $barang->id)->update([
-            'nama_barang' => $validatedData['nama_barang'],
-            'warna' => $validatedData['warna'],
-            'gambar' => $validatedData['gambar'] ,
-            'flashsale' => $validatedData['flashsale'],
-            'harga' => $validatedData['harga'],
-            'harga_diskon' => $validatedData['harga_diskon'],
-            'deskripsi_produk' => $validatedData['deskripsi_produk'],
-            'ukuran' => $validatedData['ukuran'],
-            'bahan' => $validatedData['category'],
-        ]);
+        Barang::where('id', $barang->id)->update($validatedData);
 
         return redirect('/dashboard/barangs')->with('success', 'Barang berhasil diperbaharui!');
     }

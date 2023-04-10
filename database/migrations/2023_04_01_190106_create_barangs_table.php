@@ -17,15 +17,15 @@ return new class extends Migration
             $table->string('bahan');
             $table->string('sku');
             $table->integer('stok');
+            $table->string('kategori');
             $table->string('warna');
             $table->string('gambar');
-            $table->string('kategori');
             $table->string('flashsale');
             $table->string('harga');
             $table->string('harga_diskon')->nullable();
             $table->string('deskripsi_produk');
             $table->string('ukuran');
-          
+
             $table->timestamps();
         });
     }

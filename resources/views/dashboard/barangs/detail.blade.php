@@ -14,14 +14,13 @@
         <button class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span> Delete</button>
     </form>
     <h2 class="mb-1 mt-3">{{ $barang->nama_barang }}</h2>
-    <div class="row">
+    <div class="row" >
         {{-- image --}}
-        <div class="detail-right col-lg-6 mt-2">
-            <div style="max-width: 10rem;">
-            <?php foreach (($barang->gambar)as $picture) { ?>
-                 <img src="{{ asset('/gambar/'.$picture) }}" style="height:120px; width:200px"/>
+        <div class="detail-right col-lg-5 mt-2">
+            <div class="mb-2">
+                <?php foreach (($barang->gambar)as $picture) { ?>
+                    <img src="{{ asset('/gambar/'.$picture) }}" style="height:12rem; width:15.8rem" class="mb-2"/>
                 <?php } ?>
-                {{-- <img src="{{ asset('storage/' . $barang->gambar) }}" alt="{{ $barang->category }}" class="img-fluid"> --}}
             </div>
 
         </div>
@@ -70,7 +69,6 @@
                             <td>Ukuran</td>
                             <td>{!! $barang->ukuran !!}</td>
                         </tr>
-                       
                     </tbody>
                 </table>
             </div>

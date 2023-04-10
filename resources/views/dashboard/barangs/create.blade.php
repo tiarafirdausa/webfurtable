@@ -19,12 +19,12 @@
         </div>
 
         <div class="mb-3">
-            <label for="category" class="form-label">Category</label>
-            <select class="form-select" name="category"  id="category" onchange="updateSku()">
+            <label for="bahan" class="form-label">Bahan</label>
+            <select class="form-select" name="bahan"  id="bahan" onchange="updateSku()">
                 <option value="">Pilih Bahan</option>
                 <option value="Jati">Jati</option>
                 <option value="Jepara">Jepara</option>
-                <option value="Kalimantan">Trembesi</option>
+                <option value="Trembesi">Trembesi</option>
             </select>
         </div>
 
@@ -66,8 +66,8 @@
 
 
         <div class="mb-3">
-            <label for="gambar" class="form-label">Gambar Detail</label>
-            <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar[]" multiple required>
+            <label for="gambar" class="form-label">Gambar</label>
+            <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" value="{{ old('gambar') }}" name="gambar[]" multiple required>
             @error('gambar')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -119,15 +119,6 @@
             @enderror
         </div>
 
-        {{-- <div class="mb-3">
-            <label for="ukuran" class="form-label">Ukuran</label>
-            <textarea name="ukuran" type="text-area" class="form-control @error('ukuran') is-invalid @enderror" id="ukuran" >{{ old('ukuran') }}</textarea>
-            @error('ukuran')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-        </div> --}}
 
         <div class="mb-3">
             <label for="ukuran" class="form-label">Ukuran</label>
@@ -138,47 +129,29 @@
             @enderror
         </div>
 
-      
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
 
 <script>
     function updateSku() {
-        var category = document.getElementById("category").value;
+        var bahan = document.getElementById("bahan").value;
         var skuInput = document.getElementById("sku");
 
-        if (category === "Jati") {
+        if (bahan === "Jati") {
             var randNum = Math.floor(Math.random() * 1000);
-            skuInput.value = "MJ-JT-" + randNum;
+            skuInput.value = "FT-JT-" + randNum;
 
-        } else if (category === "Jepara") {
+        } else if (bahan === "Jepara") {
             var randNum = Math.floor(Math.random() * 1000);
-            skuInput.value = "MJ-JP-" + randNum;
+            skuInput.value = "FT-JP-" + randNum;
 
-        } else if (category === "Kalimantan") {
+        } else if (bahan === "Trembesi") {
             var randNum = Math.floor(Math.random() * 1000);
-            skuInput.value = "MJ-KN-" + randNum;
+            skuInput.value = "FT-TR-" + randNum;
         } else {
-            skuInput.value = "MJ-";
+            skuInput.value = "FT-";
         }
-    }
-
-    function previewImage(){
-        const image = document.querySelector('#gambar');
-        const imgPreview = document.querySelector('.img-preview');
-
-        imgPreview.style.display = 'blok';
-
-        const oFReader = new FileReader();
-        oFReader.readAsDataURL(image.file[0]);
-
-        oFReader.onload = function(oFREvent){
-            imgPreview.src = oFREvent.target.result;
-        }
-
-        // const blob = URL.createObjectURL(image.files[0]);
-        // imgPreview.src = blob;
     }
 
     document.addEventListener('trix-file-accept', function(e){
@@ -187,7 +160,7 @@
 
     var flashsale = document.getElementsByName("flashsale");
     var harga_diskon = document.getElementById("harga_diskon");
-        // Memasang event listener pada radio button
+    // Memasang event listener pada radio button
     for(var i=0; i<flashsale.length; i++) {
         flashsale[i].addEventListener('click', function() {
             // Jika pilihan 'yes' dipilih, tampilkan form field baru

@@ -20,12 +20,12 @@
         </div>
 
         <div class="mb-3">
-            <label for="category" class="form-label">Category</label>
-            <select class="form-select" name="category"  id="category" onchange="updateSku()" >
-                <option value="">Pilih Category</option>
+            <label for="bahan" class="form-label">Bahan</label>
+            <select class="form-select" name="bahan"  id="bahan" onchange="updateSku()" >
+                <option value="">Pilih Bahan</option>
                 <option value="Jati" {{ $barang->bahan == 'Jati' ? 'selected' : '' }}>Jati</option>
                 <option value="Jepara" {{ $barang->bahan == 'Jepara' ? 'selected' : '' }}>Jepara</option>
-                <option value="Kalimantan" {{ $barang->bahan == 'Trembesi' ? 'selected' : '' }}>Trembesi</option>
+                <option value="Trembesi" {{ $barang->bahan == 'Trembesi' ? 'selected' : '' }}>Trembesi</option>
             </select>
         </div>
 
@@ -37,6 +37,17 @@
                     {{ $message }}
                 </div>
             @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="kategori" class="form-label">Pilih Kategori</label>
+            <select class="form-select" name="kategori"  id="kategori">
+                <option value="">Pilih Kategori</option>
+                <option value="Ruang Tamu" {{ $barang->kategori == 'Ruang Tamu' ? 'selected' : '' }}>Ruang Tamu</option>
+                <option value="Kamar" {{ $barang->kategori == 'Kamar' ? 'selected' : '' }}>Kamar</option>
+                <option value="Dapur" {{ $barang->kategori == 'Dapur' ? 'selected' : '' }}>Dapur</option>
+                <option value="Teras" {{ $barang->kategori == 'Teras' ? 'selected' : '' }}>Teras</option>
+            </select>
         </div>
 
         <div class="mb-3">
@@ -61,7 +72,7 @@
 
         <div class="mb-3">
             <label for="gambar" class="form-label">Gambar</label>
-            <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar[]" multiple>
+            <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" value="{{ old('barang', $barang->barang) }}" name="gambar[]" multiple>
             @error('gambar')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -113,16 +124,6 @@
             @enderror
         </div>
 
-        {{-- <div class="mb-3">
-            <label for="ukuran" class="form-label">Ukuran</label>
-            <textarea name="ukuran" type="text" class="form-control @error('ukuran') is-invalid @enderror" id="ukuran" >{{ old('ukuran', $barang->ukuran) }}</textarea>
-            @error('ukuran')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-        </div> --}}
-
         <div class="mb-3">
             <label for="ukuran" class="form-label">Ukuran</label>
             <input id="ukuran" type="hidden" name="ukuran" value="{{ old('ukuran', $barang->ukuran) }}">
@@ -131,46 +132,31 @@
                 <p class="text-danger"><small>{{ $message }}</small></p>
             @enderror
         </div>
-
-       
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
 
 <script>
     function updateSku() {
-        var category = document.getElementById("category").value;
+        var bahan = document.getElementById("bahan").value;
         var skuInput = document.getElementById("sku");
 
-        if (category === "JT") {
+        if (bahan === "Jati") {
             var randNum = Math.floor(Math.random() * 1000);
-            skuInput.value = "MJ-JT-" + randNum;
+            skuInput.value = "FT-JT-" + randNum;
 
-        } else if (category === "JP") {
+        } else if (bahan === "Jepara") {
             var randNum = Math.floor(Math.random() * 1000);
-            skuInput.value = "MJ-JP-" + randNum;
+            skuInput.value = "FT-JP-" + randNum;
 
-        } else if (category === "KN") {
+        } else if (bahan === "Trembesi") {
             var randNum = Math.floor(Math.random() * 1000);
-            skuInput.value = "MJ-KN-" + randNum;
+            skuInput.value = "FT-TR-" + randNum;
         } else {
-            skuInput.value = "MJ-";
+            skuInput.value = "FT-";
         }
     }
 
-    function previewImage(){
-        const image = document.querySelector('#gambar');
-        const imgPreview = document.querySelector('.img-preview');
-
-        imgPreview.style.display = 'blok';
-
-        const oFReader = new FileReader();
-        oFReader.readAsDataURL(image.file[0]);
-
-        oFReader.onload = function(oFREvent){
-            imgPreview.src = oFREvent.target.result;
-        }
-    }
 </script>
 
 @endsection
