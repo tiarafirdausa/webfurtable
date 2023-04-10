@@ -560,6 +560,30 @@ body {
     transform: scale(1.1);
 }
 
+.populer .container .card .deskripsi .price {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #181823;
+}
+  
+.populer .container .card .deskripsi .original-price {
+    text-decoration: line-through;
+    font-weight: 700;
+    font-size: 14px;
+    margin-right: 4px;
+    color: #818194;
+}
+  
+.populer .container .card .deskripsi .flashsale-price {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #181823;
+}
+
 
 /* Footer */
 
