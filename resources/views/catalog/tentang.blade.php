@@ -211,7 +211,7 @@
                             <h4>BANTUAN</h4>
                             <ul class="list-unstyled">
                                 <li><a href="/hubungi">Hubungi Kami</a></li>
-                                <li><a href="#">FAQs</a></li>
+                                <li><a href="/FAQ">FAQs</a></li>
                             </ul>
                         </div>
                     </div>
