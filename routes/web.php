@@ -53,3 +53,8 @@ Route::resource('dashboard/barangs', BarangController::class)->middleware('auth'
 Route::get('/hubungi', function () {
     return view('catalog.hubungi');
 });
+
+//FAQs
+Route::get('/FAQ', function () {
+    return view('catalog.faq');
+});
