@@ -205,43 +205,32 @@
     <section class="populer">
         <h1>Produk Populer</h1>
         <div class="container">
+            @foreach ($populer as $barang )
             <div class="card">
-                <img src="img/populer/populer1.png">
+                <img src="{{ asset('/gambar/' . $barang->gambar[0]) }}"/>
                 <div class="deskripsi">
-                    <h4>Kursi kayu jati</h4>
-                    <h3>Kursi kayu jati</h3>
-                    <h2>Rp 6.500.000</h2>
+                    <h4>{{ $barang->kategori }}</h4>
+
+                    <h3>{{ $barang->nama_barang }}</h3>
+                    <!-- @if ($barang->flashsale=="yes")
+                        <h2>{{ 'Rp '. number_format( $barang->harga_diskon, 0, ',', '.') }}</h2>
+                    @else
+                        <h2>{{ 'Rp '. number_format( $barang->harga, 0, ',', '.') }}</h2>
+                    @endif -->
+                    @if($barang->flashsale=="yes")
+                    <div class="price">
+                      <span class="original-price">Rp {{ number_format($barang->harga, 0, ',', '.') }}</span>
+                      <span class="flashsale-price">Rp {{ number_format($barang->harga_diskon, 0, ',', '.') }}</span>
+                    </div>
+                  @else
+                    <div class="price">
+                      <span class="normal-price">Rp {{ number_format($barang->harga, 0, ',', '.') }}</span>
+                    </div>
+                  @endif
                 </div>
-                <a href="#">Lihat detail</a>
+                <p>Lihat detail</p>
             </div>
-            <div class="card">
-                <img src="img/populer/populer2.png">
-                <div class="deskripsi">
-                    <h4>Kursi kayu jati</h4>
-                    <h3>Kursi kayu jati</h3>
-                    <h2>Rp 6.500.000</h2>
-                </div>
-                <a href="#">Lihat detail</a>
-            </div>
-            <div class="card">
-                <img src="img/populer/populer3.png">
-                <div class="deskripsi">
-                    <h4>Kursi kayu jati</h4>
-                    <h3>Kursi kayu jati</h3>
-                    <h2>Rp 6.500.000</h2>
-                </div>
-                <a href="#">Lihat detail</a>
-            </div>
-            <div class="card">
-                <img src="img/populer/populer4.png">
-                <div class="deskripsi">
-                    <h4>Kursi kayu jati</h4>
-                    <h3>Kursi kayu jati</h3>
-                    <h2>Rp 6.500.000</h2>
-                </div>
-                <a href="#">Lihat detail</a>
-            </div>
-        </div>
+            @endforeach
         <div class="cta">
             <a href="#">Lihat Semua</a>
         </div>

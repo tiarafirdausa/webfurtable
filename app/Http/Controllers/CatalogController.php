@@ -14,4 +14,11 @@ class CatalogController extends Controller
             'populer' => Barang::orderBy('stok', 'desc')->paginate(4) 
         ]); 
     } 
+
+    public function home(){ 
+        // dd($request->all()); 
+        return view('catalog.home',[ 
+            'populer' => Barang::orderBy('stok', 'desc')->paginate(4) 
+        ]); 
+    }
 } 
