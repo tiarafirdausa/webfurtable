@@ -7,7 +7,7 @@
         </a>
 
         <div class="navbar-nav">
-            <a href="/home">Home</a>
+            <a href="/">Home</a>
             <a href="/product">Product</a>
             <a href="/tentang">Tentang</a>
         </div> 

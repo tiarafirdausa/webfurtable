@@ -401,6 +401,125 @@ body {
     color: #3C4048;
     margin-top: 1rem;
 }
+
+/* Produk Populer */
+
+.populer {
+    margin: 6.25rem 7% 0 7%;
+    /* justify-content: center; */
+}
+
+.populer h1 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 3.125rem;
+    margin-bottom: 3.75rem;
+}
+
+.populer .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.688rem;
+    margin-top: 2.5rem;
+    
+}
+  
+.populer .container .card {
+    width: 17.5rem;
+    height: 29.375rem;
+    background: #FFFFFF;
+    box-shadow: 0.125rem 0.125rem 0.625rem rgba(0, 0, 0, 0.12);
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.populer .container .card .deskripsi {
+    margin: 1.25rem 0 0 1.375rem;
+}
+
+.populer .container .card .deskripsi h4 {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    color: #818194;    
+}
+
+.populer .container .card .deskripsi h3 {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.5rem;
+}
+
+.populer .container .card .deskripsi h2 {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.populer .container .card p { 
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    text-align: end;
+    margin: 1.5rem 2rem 0 0;
+}
+
+.populer .container .card img {
+    width: 100%;
+}
+
+.populer .cta a {
+    padding: 1.1rem 3rem;
+    background-color: var(--button);
+    border-radius: 0.875rem;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 16rem;
+    height: 3.75rem;
+    text-align: center;
+    font-size: 1.125rem;
+    text-decoration: none;
+    color: #ffffff;
+    margin-top: 60px;
+}
+
+.populer .cta {
+    justify-content: center;
+    display: flex;
+}
+
+.populer .cta:hover{
+    transform: scale(1.1);
+}
+
+.populer .container .card .deskripsi .price {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #181823;
+}
+  
+.populer .container .card .deskripsi .original-price {
+    text-decoration: line-through;
+    font-weight: 700;
+    font-size: 14px;
+    margin-right: 4px;
+    color: #818194;
+}
+  
+.populer .container .card .deskripsi .flashsale-price {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #181823;
+}
 /* footer */
 
 footer {

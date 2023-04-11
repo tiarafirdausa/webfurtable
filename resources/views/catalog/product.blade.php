@@ -191,7 +191,7 @@
                                 <h3>{{$barang -> nama_barang}}</h3>
                                 <p>{{$barang -> deskripsi_produk}}</p>
                                 <p>{{$barang -> harga}}</p>
-                                <a href="/">Lihat Barang</a>
+                                <a href="/detail/{{ $barang->id }}">Lihat detail</a>
                             </div>
                         </div>
                         @endforeach
