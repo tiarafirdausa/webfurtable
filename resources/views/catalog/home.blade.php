@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lato:wght@300;400;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
 
@@ -32,7 +32,7 @@
     <link rel="shortcut icon" type="image/icon" href="img/header/logo.png" />
 
 </head>
-<body> 
+<body>
     <!-- Navbar start -->
     <nav class="navbar">
         <div>
@@ -40,12 +40,12 @@
                 <img src="img/header/logo.png" alt="logo" width="30" height="24" class="d-inline-block align-text-top">
                 FURTABLE
             </a>
-    
+
             <div class="navbar-nav">
                 <a href="#home">Home</a>
                 <a href="/product">Product</a>
                 <a href="/tentang">Tentang</a>
-            </div> 
+            </div>
         </div>
 
         <div class="navbar-extra">
@@ -114,7 +114,7 @@
     <!-- Why Furtabe start -->
     <section class="why">
         <h2>Kenapa Harus Furtable?</h2>
-        <p>Ada beberapa fitur unggulan yang spesial untuk furniture lovers, sehingga membuat 
+        <p>Ada beberapa fitur unggulan yang spesial untuk furniture lovers, sehingga membuat
         <br />kalian nyaman dan senang saat berbelanja disini</p>
         <div class="container">
             <div class="card">
@@ -156,17 +156,17 @@
         </div>
         <div class="content">
             <h2>Kursi klasik dengan kesan elegant</h2>
-            <p>Tidak selamanya yang klasik pasti kuno atau ketinggalan jaman, di industri 4.0 sekarang semua model baik klasik mupun modern bisa tetap menghiasi ruanganmu dengan mewah, dan tidak selamanya yang clasic adalah barang lama.</p>   
-            <a href="#" class="cta">Cek barang</a>
+            <p>Tidak selamanya yang klasik pasti kuno atau ketinggalan jaman, di industri 4.0 sekarang semua model baik klasik mupun modern bisa tetap menghiasi ruanganmu dengan mewah, dan tidak selamanya yang clasic adalah barang lama.</p>
+            <a href="/product" class="cta">Cek barang</a>
         </div>
     </section>
     <!-- row 1 End -->
-    
+
     <!-- row 2 start -->
     <section id="row2" class="row2">
         <div class="content">
             <h2>Desain minimalis dengan warna hitam putih</h2>
-            <p>Anda menyukai desain minimalis dengan warna yang elegant? kami juga menyediakan beberapa pilihan dengan desain minimalist modern elegan dan yang pasti akan membuat ruangan anda menjadi lebih mewah dan memberikan vibe positif bak modern home</p>   
+            <p>Anda menyukai desain minimalis dengan warna yang elegant? kami juga menyediakan beberapa pilihan dengan desain minimalist modern elegan dan yang pasti akan membuat ruangan anda menjadi lebih mewah dan memberikan vibe positif bak modern home</p>
             <a href="#" class="cta">Cek barang</a>
         </div>
         <div class="row2-img">
@@ -174,7 +174,7 @@
         </div>
     </section>
     <!-- row 2 End -->
-    
+
     <!-- row 3 start -->
     <section id="row3" class="row3">
         <div class="row3-img">
@@ -182,8 +182,8 @@
         </div>
         <div class="content">
             <h2>Kayu jati adalah kayu terbaik untuk furniture</h2>
-            <p>Apakah anda pecinta kayu jati yang khas dengan serat kayunya? anda bisa cek disini untuk tau ukiran ukiran yang anda sukai tanpa rasa ragu, selain terkenal serat yang indah kayu jati ini juga diukir oleh pengrajin yang handal</p>   
-            <a href="#" class="cta">Cek barang</a>
+            <p>Apakah anda pecinta kayu jati yang khas dengan serat kayunya? anda bisa cek disini untuk tau ukiran ukiran yang anda sukai tanpa rasa ragu, selain terkenal serat yang indah kayu jati ini juga diukir oleh pengrajin yang handal</p>
+            <a href="/product" class="cta">Cek barang</a>
         </div>
     </section>
     <!-- row 3 End -->
@@ -192,15 +192,15 @@
     <section id="row4" class="row4">
         <div class="content">
             <h2>Desain minimalis dengan warna hitam putih</h2>
-            <p>Anda menyukai desain minimalis dengan warna yang elegant? kami juga menyediakan beberapa pilihan dengan desain minimalist modern elegan dan yang pasti akan membuat ruangan anda menjadi lebih mewah dan memberikan vibe positif bak modern home</p>   
-            <a href="#" class="cta">Cek barang</a>
+            <p>Anda menyukai desain minimalis dengan warna yang elegant? kami juga menyediakan beberapa pilihan dengan desain minimalist modern elegan dan yang pasti akan membuat ruangan anda menjadi lebih mewah dan memberikan vibe positif bak modern home</p>
+            <a href="/product" class="cta">Cek barang</a>
         </div>
         <div class="row4-img">
             <img src="img/home/row2.png">
         </div>
     </section>
     <!-- row 4 End -->
-    
+
     <!-- Produk populer start -->
     <section class="populer">
         <h1>Produk Populer</h1>
@@ -212,11 +212,6 @@
                     <h4>{{ $barang->kategori }}</h4>
 
                     <h3>{{ $barang->nama_barang }}</h3>
-                    <!-- @if ($barang->flashsale=="yes")
-                        <h2>{{ 'Rp '. number_format( $barang->harga_diskon, 0, ',', '.') }}</h2>
-                    @else
-                        <h2>{{ 'Rp '. number_format( $barang->harga, 0, ',', '.') }}</h2>
-                    @endif -->
                     @if($barang->flashsale=="yes")
                     <div class="price">
                       <span class="original-price">Rp {{ number_format($barang->harga, 0, ',', '.') }}</span>
@@ -228,11 +223,12 @@
                     </div>
                   @endif
                 </div>
-                <p>Lihat detail</p>
+                <a href="/catalog/detail/{{ $barang->id }}">Lihat detail</a>
             </div>
             @endforeach
+        </div>
         <div class="cta">
-            <a href="#">Lihat Semua</a>
+            <a href="#" >Lihat Semua</a>
         </div>
     </section>
     <!-- Produk populer end-->
@@ -289,7 +285,7 @@
       </footer>
     <!-- Footer end -->
 
-    
+
 
     <!-- Feather Icons -->
     <script>
