@@ -17,12 +17,8 @@ use App\Http\Controllers\AdminController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/home', function () {
-    return view('catalog.home');
-});
-Route::get('/', function () {
-    return view('catalog.home');
-});
+Route::get('/', [CatalogController::class, 'home']); 
+
 Route::get('/product', function () {
     return view('catalog.product');
 });

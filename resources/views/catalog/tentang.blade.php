@@ -184,9 +184,7 @@
         <div class="container">
             @foreach ($populer as $barang )
             <div class="card">
-                @if (count($barang->gambar) > 0)
-                    <img src="{{ asset('/gambar/' . $barang->gambar[0]) }}"/>
-                @endif
+                <img src="{{ asset('/gambar/' . $barang->gambar[0]) }}"/>
                 <div class="deskripsi">
                     <h4>{{ $barang->kategori }}</h4>
 
