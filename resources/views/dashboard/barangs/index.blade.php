@@ -67,7 +67,7 @@
 
     {{-- tabel barang --}}
     @if($barangs->count())
-        <div class="table-responsive">
+        <div class="table-responsive col-lg-15">
             <table class="table table-striped table-sm">
                 <thead>
                     <tr>
@@ -75,9 +75,9 @@
                         <th scope="col">Nama Barang</th>
                         <th scope="col">SKU</th>
                         <th scope="col">Stok</th>
+                        <th scope="col">Warna</th>
                         <th scope="col">Bahan</th>
                         <th scope="col">Kategori</th>
-                        <th scope="col">Gambar</th>
                         <th scope="col">Flashsale</th>
                         <th scope="col">Action</th></th>
                     </tr>
@@ -86,16 +86,19 @@
                     @foreach ($barangs as $barang )
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $barang->nama_barang }}</td>
+                            <td>
+                                <div>
+                                    <h6>{{ $barang->nama_barang }}</h6>
+                                </div>
+                                <div>
+                                    <img src="{{ asset('/gambar/' . $barang->gambar[0]) }}" style="height:150px; width:200px"/>
+                                </div>
+                            </td>
                             <td>{{ $barang->sku }}</td>
                             <td>{{ $barang->stok }}</td>
+                            <td>{{ $barang->warna }}</td>
                             <td>{{ $barang->bahan}}</td>
                             <td>{{ $barang->kategori}}</td>
-                            <td>
-                                <?php foreach (($barang->gambar)as $picture) { ?>
-                                    <img src="{{ asset('/gambar/'.$picture) }}" style="height:120px; width:200px"/>
-                                <?php } ?>
-                            </td>
                             <td>{{ $barang->flashsale }}</td>
                             <td>
                                 <a href="/dashboard/barangs/{{ $barang->id }}" class="badge bg-info"><span data-feather="eye"></span></a>
