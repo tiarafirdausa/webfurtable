@@ -207,7 +207,7 @@
                     </div>
                   @endif
                 </div>
-                <p>Lihat detail</p>
+                <a href="/catalog/detail/{{ $barang->id }}">Lihat detail</a>
             </div>
             @endforeach
         </div>
