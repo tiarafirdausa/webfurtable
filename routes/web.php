@@ -29,6 +29,9 @@ Route::get('/product', function () {
 });
 
 Route::get('/tentang', [CatalogController::class, 'tentang']);
+
+Route::get('/detail', [CatalogController::class, 'detail']);
+
 //login
 Route::get('/login', [AdminController::class, 'index'])->name('login');
 Route::post('/login', [AdminController::class, 'login'])->name('login');
