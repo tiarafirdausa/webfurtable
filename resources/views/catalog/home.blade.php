@@ -228,7 +228,7 @@
             @endforeach
         </div>
         <div class="cta">
-            <a href="#" >Lihat Semua</a>
+            <a href="/product" >Lihat Semua</a>
         </div>
     </section>
     <!-- Produk populer end-->
