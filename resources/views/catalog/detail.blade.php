@@ -34,7 +34,30 @@
 </head>
 <body> 
     {{-- Navbar --}}
-    @include('catalog.layout.navbar')
+    <!-- Navbar start -->
+    <nav class="navbar">
+        <div>
+            <a href="#" class="navbar-logo">
+                <img src="img/tentang/logo.png" alt="logo" width="30" height="24" class="d-inline-block align-text-top">
+                FURTABLE
+            </a>
+
+            <div class="navbar-nav">
+                <a href="/">Home</a>
+                <a href="/product">Product</a>
+                <a href="/Tentang">Tentang</a>
+            </div>
+        </div>
+
+        <div class="navbar-extra">
+            <div class="search-box">
+                <a><img src="img/tentang/assets(svg)/icon-search-search-normal.svg" /></a>
+                <input type="search" placeholder="Search" />
+            </div>
+            <a href="#" id="hamburger-menu" class="menu"><i data-feather="menu"></i></a>
+        </div>
+    </nav>
+    <!-- Navbar end -->
 
     {{-- tombol back --}}
     <div class="back">
@@ -44,13 +67,15 @@
     <div class="column">
         <section class="left">
             <div class="big-img">
-                <img src="img/detail/mainSofa.png" alt="sofa">
+                <img src="{{ asset('/gambar/' . $barang->gambar[0])}}"/>
             </div>
             <div class="images">
-                <div class="small-img">
-                    <img src="img/detail/mainSofa.png" alt="sofa" onclick="showImg(this.src);">
-                </div>
-                <div class="small-img">
+                @foreach ($barang->gambar as $gambar)
+                    <div class="small-img">
+                        <img src="{{ asset('/gambar/'.$gambar)}}" alt="sofa" onclick="showImg(this.src);">
+                    </div>   
+                @endforeach
+                {{-- <div class="small-img">
                     <img src="img/detail/slider1.png" alt="sofa" onclick="showImg(this.src);">
                 </div>
                 <div class="small-img">
@@ -61,47 +86,47 @@
                 </div>
                 <div class="small-img">
                     <img src="img/detail/slide4.png" alt="sofa" onclick="showImg(this.src);">
-                </div>
+                </div> --}}
             </div>
             <div class="big-img">
-                <img src="img/detail/detail1.png" alt="sofa">
+                <img src="{{ asset('/gambar/' . $barang->gambar[3])}}"/>
             </div>
             <div class="big-img">
-                <img src="img/detail/detail2.png" alt="sofa">
+                <img src="{{ asset('/gambar/' . $barang->gambar[4])}}"/>
             </div>
         </section>
         <section class="Right">
             <div class="judul">
-                <h1>LANDSOVER</h1>
-                <h2>Sofa, Set mebel</h2>
+                <h1>{{ $barang->nama_barang }}</h1>
+                <h2>{{ $barang->kategori }}</h2>
                 <div class="harga">
-                    {{-- @if($product->flashsale_price)
-                        <div class="price">
-                            <span class="original-price">Rp {{ number_format($product->price, 0, '.', ',') }}</span>
-                            <span class="flashsale-price">Rp {{ number_format($product->flashsale_price, 0, '.', ',') }}</span>
-                        </div>
-                    @else
-                        <div c lass="price">
-                            <span class="normal-price">Rp {{ number_format($product->price, 0, '.', ',') }}</span>
-                        </div>
-                    @endif                   --}}
+                    @if($barang->flashsale=="yes")
+                    <div class="price">
+                      <span class="original-price">Rp {{ number_format($barang->harga, 0, ',', '.') }}</span>
+                      <span class="flashsale-price">Rp {{ number_format($barang->harga_diskon, 0, ',', '.') }}</span>
+                    </div>
+                  @else
+                    <div class="price">
+                      <span class="normal-price">Rp {{ number_format($barang->harga, 0, ',', '.') }}</span>
+                    </div>
+                  @endif
                 </div>
             </div>
             <div class="warna">
                 <h2>Warna</h2>
-                
+                <h3>{{ $barang->warna }}</h3>
             </div>
             <div class="deskripsi">
                 <h2>Deskripsi Produk</h2>
-                
+                <h3>{{ $barang->deskripsi_produk }}</h3>
             </div>
             <div class="Bahan">
                 <h3>Bahan</h3>
-                
+                <h3>{{ $barang->bahan }}</h3>
             </div>
             <div class="ukuran">
                 <h3>Ukuran</h3>
-                
+                <h3>{!! $barang->ukuran !!}</h3>
             </div>
             <div class="want">
                 <h2>Ingin Mendapatkan Produk ini?</h2>
@@ -123,6 +148,38 @@
             </div>
         </section>
     </div>
+    <!-- Produk populer start -->
+    <section class="populer">
+        <h1>Produk yang mirip dengannya</h1>
+        <div class="container">
+            @foreach ($populer as $barang )
+            <div class="card">
+                <img src="{{ asset('/gambar/' . $barang->gambar[0]) }}"/>
+                <div class="deskripsi">
+                    <h4>{{ $barang->kategori }}</h4>
+
+                    <h3>{{ $barang->nama_barang }}</h3>
+                    
+                    @if($barang->flashsale=="yes")
+                    <div class="price">
+                      <span class="original-price">Rp {{ number_format($barang->harga, 0, ',', '.') }}</span>
+                      <span class="flashsale-price">Rp {{ number_format($barang->harga_diskon, 0, ',', '.') }}</span>
+                    </div>
+                  @else
+                    <div class="price">
+                      <span class="normal-price">Rp {{ number_format($barang->harga, 0, ',', '.') }}</span>
+                    </div>
+                  @endif
+                </div>
+                <a href="/detail/{{ $barang->id }}">Lihat detail</a>
+            </div>
+            @endforeach
+        </div>
+        <div class="cta">
+            <a href="#" >Lihat Semua</a>
+        </div>
+    </section>
+    <!-- Produk populer end-->
 
 
     {{-- Footer --}}
